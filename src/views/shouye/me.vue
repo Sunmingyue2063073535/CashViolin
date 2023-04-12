@@ -11,17 +11,27 @@
         </div>
         <!-- 顶部 -->
         <div class="me-top">
-            <div class="me-top-tx">
-                <img src="../../assets/touxiang.png" alt="">
+            <div v-if="$store.state.isLogin">
+                <div class="me-top-tx">
+                    <img src="../../assets/touxiang.png" alt="">
+                </div>
+                <div class="me-top-name1">457y58874232</div>
             </div>
-            <div class="me-top-name">457y58874232</div>
+            <div v-else>
+                <div class="me-top-tx">
+                    <img src="../../assets/default-user.png" alt="">
+                </div>
+                <div class="me-top-name2">
+                    <button class="btn" @click="$router.push('/login')">Log in</button>
+                </div>
+            </div>
         </div>
         <div class="me-loan">
             <img src="../../assets/me-banner.png" alt="">
         </div>
         <!-- 功能列表 -->
         <ul class="tools">
-            <li>
+            <li @click="$router.push('/loan')">
                 <!-- 图标icon -->
                 <div class="tools-icon">
                     <img src="../../assets/lock.png" alt="">
@@ -33,7 +43,7 @@
                     <img src="../../assets/right.png" alt="">
                 </div>
             </li>
-            <li>
+            <li @click="$router.push('/productList')">
                 <!-- 图标icon -->
                 <div class="tools-icon">
                     <img src="../../assets/lock.png" alt="">
@@ -184,7 +194,7 @@ export default {
             }
         }
 
-        .me-top-name {
+        .me-top-name1 {
             width: 100vw;
             height: (100/@a);
             border-radius: (30/@a) (30/@a) 0 0;
@@ -195,6 +205,26 @@ export default {
             color: #FFFFFF;
             text-align: center;
             line-height: (100/@a);
+        }
+
+        .me-top-name2 {
+            width: 100vw;
+            height: (100/@a);
+            border-radius: (30/@a) (30/@a) 0 0;
+            background-color: #d8929b;
+            text-align: center;
+
+            .btn {
+                margin-top: (40/@a);
+                width: (106/@a);
+                height: (34/@a);
+                background: #FFFFFF;
+                border-radius: (5/@a);
+                font-size: (14/@a);
+                font-family: Alibaba PuHuiTi;
+                font-weight: bold;
+                color: #E1A08B;
+            }
         }
     }
 

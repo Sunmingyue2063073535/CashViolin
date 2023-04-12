@@ -1,5 +1,8 @@
 <template>
     <div class="login">
+        <div class="callback" @click="$router.back()">
+            <img src="../../assets/callback.png" alt="">
+        </div>
         <div class="login-mask">
             <div class="login-title">Login please</div>
             <div class="login-desc">
@@ -43,6 +46,12 @@ export default {
     background-image: url(../../assets/login.png);
     background-size: contain;
     padding-top: (180/@a);
+
+    .callback {
+        position: absolute;
+        top: (25/@a);
+        left: (25/@a);
+    }
 
     .login-mask {
 

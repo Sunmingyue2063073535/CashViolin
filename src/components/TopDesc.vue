@@ -1,6 +1,6 @@
 <template>
-    <div class="formTopDesc">
-        <div class="callback" @click="$router.push('/')">
+    <div class="TopDesc">
+        <div class="callback" @click="$router.back()">
             <img src="../assets/callback.png" alt="">
         </div>
         <div class="desc">{{ desc }}</div>
@@ -11,13 +11,13 @@
 
 <script>
 export default {
-    name: 'formTopDesc',
+    name: 'TopDesc',
     props: { desc: String, info: String }
 }
 </script>
 
 <style lang="less" scoped>
-.formTopDesc {
+.TopDesc {
     position: fixed;
     top: 0;
     width: 100vw;
@@ -41,7 +41,7 @@ export default {
     }
 
     .callback {
-        line-height: (67/@a);
+        line-height: (75/@a);
         width: (25/@a);
         height: (25/@a);
         margin-left: (22/@a);

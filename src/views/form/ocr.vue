@@ -1,10 +1,10 @@
 <template>
     <div class="ocr">
-        <FormTopDesc></FormTopDesc>
+        <FormTopDesc desc="identity verification" info="Please take a photo and upload your profile"></FormTopDesc>
         <!-- 上传区域 -->
         <div class="ocr-upload">
             <div class="ocr-one">
-                <div class="ocr-img" @click="show = true">
+                <div class="ocr-img" @click="doClickOne">
                     <img src="../../assets/ocr-one.png" alt="">
                 </div>
                 <div class="ocr-desc">Please take a front photo of your ID</div>
@@ -27,7 +27,7 @@
             <div class="dialog-img">
                 <img src="../../assets/ocr-dialog.png" alt="">
             </div>
-            <div class="dialog-btn" @click="show = false">to take pictures</div>
+            <div class="dialog-btn" @click="doTake">to take pictures</div>
         </van-dialog>
         <!-- 上传按钮 -->
         <button class="ocr-btn">Next Step</button>
@@ -37,9 +37,18 @@
 export default {
     data() {
         return {
-            show: false
+            show: false //弹出框的显示与隐藏
         }
     },
+    methods: {
+        doClickOne() {
+            this.show = true
+        },
+        //去上传
+        doTake() {
+            this.show = false
+        }
+    }
 }
 </script>
 
@@ -48,6 +57,7 @@ export default {
     width: 100vw;
     height: 100%;
     background-color: #f3f3f3;
+    padding-top: (100/@a);
 
     .dialog {
 
@@ -73,6 +83,10 @@ export default {
             line-height: (42/@a);
             margin-top: (20/@a);
             margin-left: (27/@a);
+            font-size: (16/@a);
+            font-family: Alibaba PuHuiTi;
+            font-weight: bold;
+            color: #FFFFFF;
         }
     }
 
