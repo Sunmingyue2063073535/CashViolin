@@ -24,6 +24,9 @@
         <div class="btn" @click="$router.push('/payType')">Need to repay loan ₹ 50000</div>
     </div>
 </template>
+<script>
+export default {}
+</script>
 <style lang="less" scoped>
 .rollover {
     width: 100vw;

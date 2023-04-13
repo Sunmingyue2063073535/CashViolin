@@ -5,7 +5,7 @@
             <img src="../../assets/shouye.png" alt="">
         </div>
         <!-- 去贷款按钮 -->
-        <div class="btn" @click="$router.push('/ocr')">Apply now</div>
+        <div class="btn" @click="toApply">Apply now</div>
         <!-- banner -->
         <div class="banner">
             <div class="toapply">To apply</div>
@@ -25,7 +25,21 @@
 </template>
 
 <script>
-export default {}
+import { getPhoneInfo } from '../../utils/android.js'
+import isNext from '../form/isNext.js'
+export default {
+    methods: {
+        //去贷款
+        toApply() {
+            // isNext()
+            this.$router.push('/ocr')
+        }
+    },
+    async created() {
+        // this.getToken()
+        // await this.$store.dispatch('form/weiwancehngform')
+    },
+}
 </script>
 
 <style lang="less" scoped>

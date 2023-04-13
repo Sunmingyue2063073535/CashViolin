@@ -12,8 +12,12 @@ import productList from '../views/product/productList.vue'
 import askquestions from '../views/kefu/askQuestions.vue'
 import huoti from '../views/form/huoti.vue'
 import topay from '../views/huankuan/toPay.vue'
+import baseForm from '../views/form/baseForm.vue'
+import xieyi from '../views/xieyi/xieyi.vue'
+import ocrForm from '../views/form/ocrForm.vue'
 const routes = [
-    { path: '/', component: shouye },
+    { path: '/', component: xieyi },
+    { path: '/shouye', component: shouye },
     { path: '/me', component: me },
     { path: '/login', component: login },
     { path: '/ocr', component: ocr },
@@ -27,6 +31,8 @@ const routes = [
     { path: '/askquestions', component: askquestions },
     { path: '/huoti', component: huoti },
     { path: '/topay', component: topay },
+    { path: '/baseForm', component: baseForm },
+    { path: '/ocrForm', component: ocrForm },
 ]
 
 export default routes

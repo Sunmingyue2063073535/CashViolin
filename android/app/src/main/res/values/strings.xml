@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cash Violin</string>
+    <string name="title_activity_main">Cash Violin</string>
+    <string name="package_name">com.music.violin.cash.violin.music.loan.store.cash.loan</string>
+    <string name="custom_url_scheme">com.music.violin.cash.violin.music.loan.store.cash.loan</string>
+</resources>

@@ -15,7 +15,7 @@
                 <div class="me-top-tx">
                     <img src="../../assets/touxiang.png" alt="">
                 </div>
-                <div class="me-top-name1">457y58874232</div>
+                <div class="me-top-name1">{{ $store.state.userInfo.phone }}</div>
             </div>
             <div v-else>
                 <div class="me-top-tx">
@@ -81,12 +81,29 @@
             </li>
         </ul>
         <!-- 退出按钮 -->
-        <button class="tuichu" @click="$router.push('/login')">Log out</button>
+        <button class="tuichu" @click="doLogout" v-if="$store.state.isLogin">Log out</button>
     </div>
 </template>
 <script>
+import { Dialog, Toast } from 'vant'
 export default {
-
+    methods: {
+        //退出
+        doLogout() {
+            Dialog.confirm({
+                message: 'Are you sure you want to quit?',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: 'Cancel'
+            }).then(() => {
+                this.$store.commit('clearUserInfo')
+                this.$store.commit('changeLogin', false)
+                this.$router.push('/')
+                Toast('Exit Successfully')
+            });
+            // this.$store.commit('clearUserInfo')
+            // this.$store.commit('changeLogin', false)
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

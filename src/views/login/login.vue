@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="callback" @click="$router.back()">
-            <img src="../../assets/callback.png" alt="">
+            <img src="../../assets/callback-left.png" alt="">
         </div>
         <div class="login-mask">
             <div class="login-title">Login please</div>
@@ -19,23 +19,94 @@
                     <img src="../../assets/lock.png" alt="">
                 </div>
                 <!-- 发送验证码按钮 -->
-                <div class="yzmBtn">Obtain</div>
-                <van-field class="phone" v-model="username" name="用户名" placeholder="Please enter phone number" />
-                <van-field class="yzm" v-model="code" name="用户名" placeholder="please enter verification code" />
-                <div class="formBtn">Log in</div>
+                <div class="yzmBtn" @click="setYzm" v-if="!isyzm">Send</div>
+                <div class="yzmBtn" v-else>{{ num }}</div>
+                <van-field type="digit" class="phone" v-model="phone" name="phone"
+                    placeholder="Please enter phone number" />
+                <van-field type="digit" class="yzm" v-model="code" name="code"
+                    placeholder="Please enter verification code" />
+                <div class="formBtn" @click="doLogin">Log in</div>
             </van-form>
         </div>
     </div>
 </template>
 
 <script>
+import { add, unt } from "../../utils/AESKey.js";
+import { getyzmApi, getLoginApi } from '../../api'
+import { Toast } from "vant";
 export default {
     data() {
         return {
-            username: '',
-            code: ''
+            phone: '',
+            code: '',
+            isyzm: false,
+            num: 0
         }
     },
+    methods: {
+        //登录
+        async doLogin() {
+            const f = {
+                phone: this.phone,
+                phoneCode: '+91',
+                code: this.code
+            }
+            const res = await getLoginApi(add(f))
+            try {
+                if (!add(res.data).status) {
+                    //登录成功
+                    this.$store.commit('setUserInfo', unt(res.data).user)
+                    this.$router.push('/')
+                    this.$store.commit('changeLogin', true)
+                    Toast('Login Successful')
+                    console.log(f, '登录的参数')
+                    console.log(unt(res.data))
+                }
+            } catch (error) {
+
+            }
+
+        },
+        //获取验证码
+        async setYzm() {
+            const f = {
+                model: {
+                    phone: '',
+                    phoneCode: '+91'
+                }
+            }
+            f.model.phone = this.phone
+
+            if (this.phone) {
+                try {
+                    const res = await getyzmApi(add(f))
+                    if (unt(res.data).status === 0) {
+                        console.log(unt(res.data))
+                        this.djs()
+                        Toast('Verification code sent successfully')
+                    }
+                } catch (error) {
+
+                }
+            } else {
+                Toast('Please fill in your phone number')
+            }
+            // console.log(unt(res.data))
+        },
+        //倒计时
+        djs() {
+            this.isyzm = true
+            this.num = 60
+            let timer = setInterval(() => {
+                this.num--
+                if (this.num < 0) {
+                    this.isyzm = false
+                    clearInterval(timer)
+                }
+            }, 1000)
+        }
+    }
 }
 </script>
 
@@ -121,7 +192,7 @@ export default {
 
             .yzmBtn {
                 position: absolute;
-                right: 0;
+                right: (-5px);
                 top: 0;
                 z-index: 1;
                 width: (56/@a);

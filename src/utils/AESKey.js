@@ -6,7 +6,7 @@
 import CryptoJS from 'crypto-js'
 //加密
 export function encrypt(word, keyStr) {
-    keyStr = keyStr || 'DQGMQdA4iZCH3eFA'
+    keyStr = keyStr || 'wZAKDD5jZsxy8rHD'
     const key = CryptoJS.enc.Utf8.parse(keyStr)
     const srcs = CryptoJS.enc.Utf8.parse(word)
     const encrypted = CryptoJS.AES.encrypt(srcs, key, {
@@ -34,15 +34,15 @@ export function decryptBase64(word, keyStr) {
 export function decryptHex(hexWord) {
     const wordArray = CryptoJS.enc.Hex.parse(hexWord)
     const sss = CryptoJS.enc.Base64.stringify(wordArray)
-    return decryptBase64(sss, 'DQGMQdA4iZCH3eFA')
+    return decryptBase64(sss, 'wZAKDD5jZsxy8rHD')
 }
 //加密
 export function add(data) {
-    const keyStr = 'DQGMQdA4iZCH3eFA'
+    const keyStr = 'wZAKDD5jZsxy8rHD'
     return (encryptHex(JSON.stringify(data, null), keyStr))
 }
 // 解密
 export function unt(data) {
-    const keyStr = 'DQGMQdA4iZCH3eFA'
+    const keyStr = 'wZAKDD5jZsxy8rHD'
     return JSON.parse(decryptHex(data, keyStr))
 }

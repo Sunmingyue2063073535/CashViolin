@@ -1,83 +1,93 @@
 <template>
     <div class="quanxian">
-        <TopDesc desc="permissions" info="Please read the following agreement carefully"></TopDesc>
-        <div class="box">
-
-        </div>
-        <div class="desc">
-            <van-checkbox class="checkbox" checked-color="#e1a08b" v-model="checked" shape="square"> By continuing, you have
-                read and agreed to the
-                above
-            </van-checkbox>
-        </div>
-        <div class="bottom">
-            <div class="disagree">I Disagree</div>
-            <div class="agree">I Agree</div>
+        <iframe
+            src="https://app.cashviolin.xyz/cossack-graver-underdogger/ruminative-heartbreaking-messy/boozy-helianthus/iivskc.html"
+            frameborder="0"></iframe>
+        <div class="quanxian-bottom">
+            <div class="quanxian-select">
+                <van-checkbox v-model="$store.state.quanxianActive" shape="square" @click="doChange"></van-checkbox>
+                <span class="quanxian-desc">Please read the agreement</span>
+            </div>
+            <div class="quanxian-btn">
+                <div class="quanxian-back" @click="$router.back()">I Disagree</div>
+                <div class="quanxian-next" @click="toNext">I Agree</div>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import { Toast } from 'vant'
 export default {
     data() {
         return {
-            checked: false
+        }
+    },
+    methods: {
+        //切换小框
+        doChange() {
+            this.$store.commit('xieyi/changequanxian')
+        },
+        //跳转到下一页
+        toNext() {
+            if (this.$store.state.quanxianActive) {
+                this.$store.commit('xieyi/addxieyi')
+                this.$router.push('/shouye')
+            } else {
+                Toast('Please check the agreement first')
+            }
         }
     },
 }
 </script>
+<style scoped lang="less">
+@a: 3.75vw;
 
-<style lang="less" scoped>
 .quanxian {
-    padding-top: (100/@a);
-    width: 100vw;
-    height: (667/@a);
-    background-color: #f5f5f5;
+    overflow: hidden;
+    padding-bottom: (100/@a);
 
-    .bottom {
-        display: flex;
-        justify-content: space-around;
-        margin-top: (10/@a);
+    iframe {
+        width: 105vw;
+        height: (667/@a);
+    }
 
-        .disagree {
-            width: (152/@a);
-            height: (47/@a);
-            background: #E5E5E5;
-            border-radius: (10/@a);
-            font-size: (16/@a);
-            text-align: center;
-            line-height: (47/@a);
-            font-family: Alibaba PuHuiTi;
-            font-weight: bold;
-            color: #FFFFFF;
+    .quanxian-bottom {
+        position: fixed;
+        bottom: 0;
+
+        .quanxian-select {
+            box-sizing: border-box;
+
+            padding-left: (10/@a);
+            height: (40/@a);
+            background-color: #e7e7e7;
+            display: flex;
+
+            .quanxian-desc {
+                padding-top: (10/@a);
+                margin-left: (10/@a);
+            }
         }
 
-        .agree {
-            width: (152/@a);
-            height: (47/@a);
-            background: #E1A08B;
-            border-radius: (10/@a);
-            font-size: (16/@a);
+        .quanxian-btn {
+            display: flex;
+            height: (60/@a);
             text-align: center;
-            line-height: (47/@a);
-            font-family: Alibaba PuHuiTi;
-            font-weight: bold;
+            line-height: (60/@a);
             color: #fff;
+            font-size: (18/@a);
+
+            .quanxian-back {
+                width: 50vw;
+                background-color: #cccccc;
+            }
+
+            .quanxian-next {
+                width: 50vw;
+                background-color: #e1a08b;
+            }
         }
     }
 
-    .box {
-        width: (336/@a);
-        height: (425/@a);
-        background: #FFFFFF;
-        border-radius: (10/@a);
-        margin-left: (19/@a);
-    }
-
-    .desc {
-        .checkbox {
-            margin-top: (20/@a);
-            margin-left: (19/@a);
-        }
-    }
 }
 </style>
