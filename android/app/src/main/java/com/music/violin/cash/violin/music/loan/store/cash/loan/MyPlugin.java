@@ -35,7 +35,7 @@ public class MyPlugin extends Plugin {
             ret.put("gaId", getGaid(getContext()));
             ret.put("androidId", getAndroidID(getContext()));
             ret.put("appVersionName", getAppVersionName(getContext()));
-        } else if (value.equals("requestQuanxian")) {
+        } else if (value.equals("getQuanxian")) {
             newCall = call;
             ActivityCompat.requestPermissions(
                     getActivity(),

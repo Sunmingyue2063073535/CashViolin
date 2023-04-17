@@ -7,7 +7,7 @@
         </div>
         <div class="gm-top">
             <div class="gm-title">Already Repaid</div>
-            <div class="gm-amount">₹ 50,000</div>
+            <div class="gm-amount">₹ {{ orderInfo.loanAmount }}</div>
         </div>
         <div class="gm-bottom">
             <ul class="gm-l">
@@ -20,13 +20,13 @@
                 <li>Total Service Charge</li>
             </ul>
             <ul class="gm-r">
-                <li>12312313</li>
-                <li>12312313</li>
-                <li>12312313</li>
-                <li>12312313</li>
-                <li>12312313</li>
-                <li>12312313</li>
-                <li>12312313</li>
+                <li>{{ orderInfo.orderId }}</li>
+                <li>{{ orderInfo.phone }}</li>
+                <li>{{ orderInfo.bankCard }}</li>
+                <li>{{ orderInfo.loanTerm }} {{ orderInfo.termUnit }}</li>
+                <li>{{ new Date(orderInfo.expiryTime).toLocaleDateString() }}</li>
+                <li>{{ orderInfo.interestRate }}</li>
+                <li>{{ orderInfo.adminAmount }}</li>
             </ul>
         </div>
         <copy></copy>
@@ -41,17 +41,26 @@
 </template>
 <script>
 import toPayDialog from './toPayDialog.vue'
+import { dingdanhuankuanAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
 export default {
     components: { toPayDialog },
     data() {
         return {
-            show: false
+            show: false,
         }
     },
     methods: {
         //全部还款
         doRepayment() {
             this.show = true
+            console.log(this.$store.state.orderInfo, '222')
+            console.log(this.orderInfo, '1111')
+        },
+    },
+    computed: {
+        orderInfo() {
+            return this.$store.state.orderInfo
         }
     }
 }

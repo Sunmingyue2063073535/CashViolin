@@ -8,13 +8,11 @@ export default async function () {
         item = form[i] || {};
         break;
     }
-    console.log(form, 'form')
-    console.log(item, 'item')
     if (item.formType == "OCR") {
         router.push('/ocr')
         //跳转OCR
         return;
-    } else if (item.formType == "ALIVE_H5") {
+    } else if (item.formType == "ALIVE") {
         router.push('/huoti')
         return
     } else if (item.formType == "BASIC") {

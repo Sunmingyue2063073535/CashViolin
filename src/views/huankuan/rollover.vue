@@ -5,7 +5,7 @@
         <div class="r-content">
             <div class="r-c-top">
                 <div class="r-c-t-title">Pay Now</div>
-                <div class="r-c-t-amount">₹ 50,000</div>
+                <div class="r-c-t-amount">₹ {{ o.loanAmount }}</div>
             </div>
             <div class="r-c-bottom">
                 <ul class="r-c-b-l">
@@ -14,18 +14,41 @@
                     <li>Recording Delay </li>
                 </ul>
                 <ul class="r-c-b-r">
-                    <li>2023-02-21 02:30:00</li>
-                    <li>7 DAY</li>
-                    <li>0 Time</li>
+                    <li>{{ new Date(o.endTime).toLocaleDateString() }}</li>
+                    <li>{{ o.delayTerm }} {{ o.termUnit }}</li>
+                    <li>{{ o.limitTimes }}</li>
                 </ul>
             </div>
         </div>
         <copy></copy>
-        <div class="btn" @click="$router.push('/payType')">Need to repay loan ₹ 50000</div>
+        <div class="btn" @click="$router.push('/payType')">Need to repay loan ₹ {{ o.loanAmount }}</div>
     </div>
 </template>
 <script>
-export default {}
+import { zhanqiAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
+export default {
+    data() {
+        return {
+            o: {}
+        }
+    },
+    methods: {
+        async getZhanqi() {
+            const f = {
+                model: {
+                    orderId: this.$store.state.orderId
+                }
+            }
+            const res = await zhanqiAPI(add(f))
+            console.log(unt(res.data))
+            this.o = unt(res.data).model
+        }
+    },
+    created() {
+        this.getZhanqi()
+    }
+}
 </script>
 <style lang="less" scoped>
 .rollover {

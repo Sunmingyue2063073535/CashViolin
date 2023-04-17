@@ -8,13 +8,14 @@
             </li>
         </ul>
         <!-- 产品列表 -->
-        <div class="goodlist" v-for="item in 10">
+        <div class="goodlist" v-for="item in list">
             <div class="gl-top">
                 <div class="gl-top-img">
-                    <img src="../../assets/goodlist.png" alt="">
+                    <img :src="toIcon(item.product.icon)" alt="">
                 </div>
-                <div class="gl-top-name">Cash Violin</div>
-                <div class="gl-top-status" @click="$router.push('toPay')">success</div>
+                <div class="gl-top-name">{{ item.product.name }}</div>
+                <div class="gl-top-status" @click="doStatusBtn(item)" :style="{ 'background-color': item.statusColor }">
+                    {{ item.status }}</div>
             </div>
             <div class="gl-content">
                 <ul class="gl-l">
@@ -22,46 +23,99 @@
                     <li>Loan Period (Days)</li>
                     <li>Loan Date</li>
                     <li>Loan Note Number</li>
-                    <li>Ask Questions</li>
+                    <li v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'">Ask Questions</li>
                 </ul>
                 <ul class="gl-r">
                     <li>₹ 15000</li>
                     <li>7 DAY</li>
                     <li>2023-02-07 08:59:22</li>
                     <li>L20230207062922806</li>
-                    <li>
+                    <li v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'"
+                        @click="$router.push('/askQuestions')">
                         <img src="../../assets/kefu-logo.png" alt="">
                     </li>
                 </ul>
             </div>
         </div>
+        <noQuestions v-if="!list.length" desc="show no pre-order"></noQuestions>
         <!-- 按钮 -->
-        <div class="btn">Submit</div>
+        <!-- <div class="btn" v-if="list.length">Submit</div> -->
     </div>
 </template>
 <script>
+import { getDingDanListAPI, dingdanhuankuanAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
+import noQuestions from '../kefu/noQuestions'
+import { Toast } from "vant";
 export default {
+    components: { noQuestions },
     data() {
         return {
+            //标题list
             titleList: [
-                { id: 0, name: 'All' },
-                { id: 1, name: 'Success' },
-                { id: 2, name: 'Overdue' },
-                { id: 3, name: 'Finish' },
-            ]
+                { id: 0, name: 'All', msg: null },
+                { id: 1, name: 'Success', msg: 'LOAN_SUCCESS' },
+                { id: 2, name: 'Overdue', msg: 'DUNNING' },
+                { id: 3, name: 'Finish', msg: 'FINISH' },
+            ],
+            //订单list
+            list: []
         }
     },
     methods: {
+        //切换顶部导航栏
         doClick(item, index) {
             // this.count = item.id
             this.$store.commit('changeCount', index)
+            console.log(item.name)
+            this.getOrderList(item.msg)
+        },
+        //点击去还款
+        async doStatusBtn(item) {
+            if (!item.loan) {
+                Toast(item.statusNote)
+                return
+            }
+            //将id存入vuex
+            this.$store.commit('setOrderId', item.id)
+            const f = {
+                model: {
+                    orderId: ''
+                }
+            }
+            f.model.orderId = this.$store.state.orderId
+            const res = await dingdanhuankuanAPI(add(f))
+            this.$store.commit('setOrderInfo', unt(res.data).model)
+            this.$router.push('/topay')
+            // console.log(unt(res.data).model)
+        },
+        //获取订单列表
+        async getOrderList(status) {
+            const f = {
+                query: {
+                    status: status,
+                    pageNo: 1,
+                    pageSize: 10
+                }
+            }
+            const res = await getDingDanListAPI(add(f))
+            console.log(unt(res.data), '获取列表')
+            this.list = unt(res.data).page.content
+        },
+        //图片转换
+        toIcon(icon) {
+            return `https://app.cashviolin.xyz/lt-image/resize/0x0/${icon}`
         }
+    },
+    created() {
+        this.getOrderList()
     }
 }
 </script>
 <style lang="less" scoped>
 .loan {
     padding-top: (80/@a);
+    min-height: (667/@a);
     width: 100vw;
     background-color: #f5f5f5;
     padding-bottom: (26/@a);
@@ -115,9 +169,14 @@ export default {
             .gl-top-name {
                 flex: 1;
                 margin-left: (8/@a);
+                font-size: (13/@a);
+                font-family: Alibaba PuHuiTi;
+                font-weight: bold;
+                color: #FEFEFE;
             }
 
             .gl-top-status {
+                flex: 1;
                 font-size: (13/@a);
                 font-family: Alibaba PuHuiTi;
                 font-weight: 500;
@@ -127,7 +186,6 @@ export default {
                 margin-right: (13/@a);
                 width: (57/@a);
                 height: (24/@a);
-                background: #AF1A2D;
                 border-radius: (5/@a);
             }
         }
@@ -154,7 +212,7 @@ export default {
                 text-align: right;
 
                 li {
-                    font-size: (12/@a);
+                    font-size: (13/@a);
                     font-family: Alibaba PuHuiTi;
                     font-weight: 400;
                     color: #E1A08B;
@@ -163,7 +221,7 @@ export default {
                     &:last-child {
                         width: (22/@a);
                         height: (15/@a);
-                        margin-left: (100/@a);
+                        margin-left: (110/@a);
 
                         img {
                             width: 100%;

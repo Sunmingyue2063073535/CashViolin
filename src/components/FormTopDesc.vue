@@ -20,6 +20,7 @@ export default {
 .formTopDesc {
     position: fixed;
     top: 0;
+    z-index: 99;
     width: 100vw;
     background: #f5f5f5;
     text-align: center;

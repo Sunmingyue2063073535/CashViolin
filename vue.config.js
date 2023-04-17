@@ -16,8 +16,8 @@ module.exports = defineConfig({
         }
     },
     // devServer: {
-    //   // 代理配置
-    //   proxy: 'https://app.cashviolin.xyz'
+    //     // 代理配置
+    //     proxy: 'https://app.cashviolin.xyz'
     // },
     configureWebpack: {
         resolve: { extensions: [".ts", ".tsx", ".js", ".json"] },

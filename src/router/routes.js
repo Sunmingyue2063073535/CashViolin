@@ -15,6 +15,10 @@ import topay from '../views/huankuan/toPay.vue'
 import baseForm from '../views/form/baseForm.vue'
 import xieyi from '../views/xieyi/xieyi.vue'
 import ocrForm from '../views/form/ocrForm.vue'
+import syyinsi from '../views/shouyexieyi/shouyeyinsi.vue'
+import syquanxian from '../views/shouyexieyi/shouyequanxian.vue'
+import beforeys from '../views/before/beforeys.vue'
+import beforeqx from '../views/before/beforeqx.vue'
 const routes = [
     { path: '/', component: xieyi },
     { path: '/shouye', component: shouye },
@@ -33,6 +37,10 @@ const routes = [
     { path: '/topay', component: topay },
     { path: '/baseForm', component: baseForm },
     { path: '/ocrForm', component: ocrForm },
+    { path: '/syyinsi', component: syyinsi },
+    { path: '/syquanxian', component: syquanxian },
+    { path: '/beforeys', component: beforeys },
+    { path: '/beforeqx', component: beforeqx },
 ]
 
 export default routes

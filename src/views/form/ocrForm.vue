@@ -73,8 +73,7 @@ export default {
             console.log(this.f, '提交用户信息的表单')
             const res = await uploadUserInfoAPI(add(this.f))
             console.log(unt(res.data), '上传证件结果')
-            // console.log(jiemi(res.data), '提交用户信息结果')
-            // isNext()
+            isNext()
         },
         //时间戳转成年月日
         formatDate(timestamp) {

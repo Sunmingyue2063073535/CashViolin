@@ -6,8 +6,8 @@
 <style lang="less" scoped>
 .copy {
     .desc {
+        text-align: center;
         margin-top: (24/@a);
-        margin-left: (15/@a);
         font-size: (10/@a);
         font-family: Alibaba PuHuiTi;
         font-weight: 400;

@@ -1,9 +1,16 @@
 <template>
     <div class="noquestions">
-        <div class="box"></div>
-        <div class="desc">no news at the moment</div>
+        <div class="box">
+            <img src="../../assets/nolist.png" alt="">
+        </div>
+        <div class="desc">{{ desc }}</div>
     </div>
 </template>
+<script>
+export default {
+    props: { desc: String }
+}
+</script>
 <style lang="less" scoped>
 .noquestions {
     .box {
@@ -11,7 +18,10 @@
         margin-left: (87/@a);
         width: (197/@a);
         height: (133/@a);
-        background: rgba(216, 146, 155, 0.1);
+
+        img {
+            width: 100%;
+        }
     }
 
     .desc {

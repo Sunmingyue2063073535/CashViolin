@@ -20,7 +20,7 @@
                 </div>
                 <!-- 发送验证码按钮 -->
                 <div class="yzmBtn" @click="setYzm" v-if="!isyzm">Send</div>
-                <div class="yzmBtn" v-else>{{ num }}</div>
+                <div class="yzmBtn" v-else>{{ num }} s</div>
                 <van-field type="digit" class="phone" v-model="phone" name="phone"
                     placeholder="Please enter phone number" />
                 <van-field type="digit" class="yzm" v-model="code" name="code"
@@ -80,11 +80,10 @@ export default {
 
             if (this.phone) {
                 try {
-                    const res = await getyzmApi(add(f))
+                    const res = await getyzmApi(add(f), false)
                     if (unt(res.data).status === 0) {
                         console.log(unt(res.data))
                         this.djs()
-                        Toast('Verification code sent successfully')
                     }
                 } catch (error) {
 
@@ -193,13 +192,13 @@ export default {
             .yzmBtn {
                 position: absolute;
                 right: (-5px);
-                top: 0;
+                top: (55/@a);
                 z-index: 1;
                 width: (56/@a);
                 height: (46/@a);
                 border-radius: 0 (10/@a) (10/@a) 0;
                 background-color: #dc9894;
-                font-size: (10/@a);
+                font-size: (16/@a);
                 text-align: center;
                 line-height: (46/@a);
                 font-family: Alibaba PuHuiTi;

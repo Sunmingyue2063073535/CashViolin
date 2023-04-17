@@ -634,7 +634,7 @@ public class GetDeviceUtils {
                 .add("mcc", DriverInfoUtil.getMCC(context)) //__xor__
                 .add("dns", DriverInfoUtil.getLocalDNS()) //__xor__
                 .add("language", DriverInfoUtil.getOsLanguage(context)) //__xor__
-//                .add("gaid", DriverInfoUtil.getGAid(context)) //__xor__
+               .add("gaid",  MyPlugin.getGaid(context)) //__xor__
                 .add("imei", DriverInfoUtil.getDriverIMIE(context)) //__xor__
                 .add("networkOperator", DriverInfoUtil.getNetworkOperator(context)) //__xor__
                 .add("networkType", DriverInfoUtil.getNetworkType(context)) //__xor__

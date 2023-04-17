@@ -1,16 +1,66 @@
 <template>
     <div class="paytype">
         <TopDesc desc="REPAYMENT MODE"></TopDesc>
-        <div class="amount">₹ 50,000</div>
+        <div class="amount">₹ {{ this.$store.state.orderInfo.actualAmount }}</div>
         <div class="pt-c">
             <div class="pt-title">Choose your payment mode</div>
             <div class="pt-choose">Please Choose</div>
-            <div class="pt-type">UPI</div>
+            <div class="pt-type" v-for="item in list " @click="doClick">{{ item.repayMethod }}</div>
         </div>
         <copy></copy>
     </div>
 </template>
+<script>
+import { getOrderPayType, getOrderLinkAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
+export default {
+    data() {
+        return {
+            list: []
+        }
+    },
+    methods: {
+        //获取还款方式
+        async getPayType() {
+            const f = {
+                model: {
+                    orderId: this.$store.state.orderId
+                }
+            }
+            const res = await getOrderPayType(add(f))
+            console.log(unt(res.data))
+            this.list = unt(res.data).model.methods
+        },
+        //去还款
+        async doClick() {
+            const f = {
+                model: {
+                    orderId: this.$store.state.orderId,
+                    repayMethod: '',
+                    methodCode: '',
+                    repayType: 'IMMEDIATE'
+                }
+            }
+            f.model.repayMethod = this.list[0].repayMethod
+            f.model.methodCode = this.list[0].methodCode
+            console.log(f)
+            const res = await getOrderLinkAPI(add(f))
+            try {
+                console.log(unt(res.data), '获取还款链接')
+                const href = unt(res.data).model.repayCode
+                setTimeout(() => {
+                    window.location.href = href
+                }, 1000);
+            } catch (error) {
 
+            }
+        }
+    },
+    created() {
+        this.getPayType()
+    }
+}
+</script>
 <style lang="less" scoped>
 .paytype {
     width: 100vw;

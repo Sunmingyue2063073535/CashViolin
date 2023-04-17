@@ -9,39 +9,37 @@
         <div class="productList-list" v-for="(item, index) in list">
             <div class="pl-top">
                 <div class="pl-top-img">
-                    <img src="../../assets/goodlist.png" alt="">
+                    <img :src="productIcon(item.icon)" alt="">
                 </div>
-                <div class="pl-top-name">Cash Violin</div>
+                <div class="pl-top-name">{{ item.name }}</div>
                 <div v-if="!isShow" class="pl-top-status" @click="put(item, index)">put away</div>
                 <div v-else class="pl-top-status" @click="unfold(item)">unfold</div>
             </div>
-            <div class="pl-content" @click="doClick">
+            <div class="pl-content" @click="doClick(item, index)">
                 <div class="pl-c-show">
                     <ul class="pl-cs-l">
                         <li>Loan amount (₹)</li>
                         <li>Loan Period (Days)</li>
                     </ul>
                     <ul class="pl-cs-r">
-                        <li>7001</li>
-                        <li>7</li>
+                        <li>{{ item.amount }}</li>
+                        <li>{{ item.term }}</li>
                     </ul>
                 </div>
             </div>
             <!-- 详细信息 -->
-            <div class="details" @click="doClick" :class="{ hide: isShow }">
+            <div class="details" @click="doClick(item, index)" :class="{ hide: isShow }">
                 <div class="line"></div>
                 <div class="d-info">
                     <ul class="d-l">
                         <li>Loan Amount</li>
                         <li>Loan Period (Days)</li>
                         <li>Loan Date</li>
-                        <li>Loan Note Number</li>
                     </ul>
                     <ul class="d-r">
-                        <li>₹ 15000</li>
-                        <li>7 DAY</li>
-                        <li>2023-02-07 08:59:22</li>
-                        <li>L20230207062922806</li>
+                        <li>₹ {{ item.amount }}</li>
+                        <li>{{ item.term }} {{ item.termUnit }}</li>
+                        <li>{{ new Date(item.created).toLocaleDateString() }}</li>
                     </ul>
                 </div>
             </div>
@@ -53,26 +51,52 @@
                 </div>
             </div>
         </div>
+        <!-- 手续费试算 -->
+        <van-dialog v-model="show" :showCancelButton="false" :showConfirmButton="false">
+            <ProductDialog v-if="sxfList" @closeDialog="show = false"></ProductDialog>
+        </van-dialog>
+        <!-- 贷款按钮 -->
+        <div class="apply" @click="doApply">Apply</div>
     </div>
 </template>
 <script>
+import { add, unt } from "../../utils/AESKey.js";
+import { getOrderListAPI, getOrderPayAPI } from "../../api";
+import ProductDialog from "./productDialog";
 export default {
+    components: { ProductDialog },
     data() {
         return {
             count: '',
             isShow: false,
             checked: false,
-            list: [
-                { id: 0 },
-                { id: 1 },
-                { id: 2 }
-            ]
+            list: [],//产品的数据
+            show: false,//弹框的布尔值
+            item: '',//点击选中的商品
+            sxfList: [],//手续费试算
         }
     },
     methods: {
+        //去贷款
+        async doApply() {
+            this.show = true
+            // const f = {
+            //     model: {
+            //         productIds: []
+            //     }
+            // }
+            // f.model.productIds.push(this.$store.state.productId)
+            // console.log(f)
+            // const res = await getOrderPayAPI(add(f))
+            // console.log(unt(res.data), '手续费试算结果')
+            // this.sxfList = unt(res.data).model
+        },
         //点击产品时
-        doClick() {
+        doClick(item, index) {
             this.checked = !this.checked
+            this.item = item
+            this.$store.commit('setProductId', this.item.id)
+            console.log(this.item)
         },
         //收齐按钮
         put(item, index) {
@@ -81,8 +105,21 @@ export default {
         //展开
         unfold() {
             this.isShow = false
+        },
+        //获取产品列表
+        async getProductList() {
+            const res = await getOrderListAPI(add({ query: {} }))
+            this.list = unt(res.data).page.content
+            console.log(unt(res.data), '获取到的产品数据')
+        },
+        //图标
+        productIcon(icon) {
+            return `https://app.cashviolin.xyz/lt-image/resize/0x0/${icon}`
         }
-    }
+    },
+    created() {
+        this.getProductList()
+    },
 }
 </script>
 <style lang="less" scoped>
@@ -91,9 +128,11 @@ export default {
     background-color: #f5f5f5;
     padding-top: (80/@a);
     padding-bottom: (40/@a);
+    min-height: (667/@a);
 
     .hide {
         display: none;
+        transition: all 0.5s;
     }
 
     .productList-list {
@@ -122,6 +161,10 @@ export default {
             .pl-top-name {
                 flex: 1;
                 margin-left: (8/@a);
+                font-size: (13/@a);
+                font-family: Alibaba PuHuiTi;
+                font-weight: bold;
+                color: #FEFEFE;
             }
 
             .pl-top-status {
@@ -178,9 +221,11 @@ export default {
             .d-info {
                 margin-top: (20/@a);
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
 
                 .d-l {
+                    margin-left: (14/@a);
+
                     li {
                         font-size: (13/@a);
                         font-family: Alibaba PuHuiTi;
@@ -191,6 +236,7 @@ export default {
                 }
 
                 .d-r {
+                    margin-right: (14/@a);
                     text-align: right;
 
                     li {
@@ -227,6 +273,21 @@ export default {
             }
         }
 
+    }
+
+    .apply {
+        width: (241/@a);
+        height: (53/@a);
+        background: #E1A08B;
+        border-radius: (10/@a);
+        margin-left: (68/@a);
+        margin-top: (30/@a);
+        text-align: center;
+        line-height: (52/@a);
+        font-size: (19/@a);
+        font-family: Alibaba PuHuiTi;
+        font-weight: bold;
+        color: #FFFFFF;
     }
 
     .pl-top {

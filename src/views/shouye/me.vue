@@ -31,10 +31,10 @@
         </div>
         <!-- 功能列表 -->
         <ul class="tools">
-            <li @click="$router.push('/loan')">
+            <li @click="toLoan">
                 <!-- 图标icon -->
                 <div class="tools-icon">
-                    <img src="../../assets/lock.png" alt="">
+                    <img src="../../assets/qianbao-icon.png" alt="">
                 </div>
                 <!-- 描述 -->
                 <div class="tools-desc">My Loan</div>
@@ -43,10 +43,10 @@
                     <img src="../../assets/right.png" alt="">
                 </div>
             </li>
-            <li @click="$router.push('/productList')">
+            <li @click="$router.push('/syyinsi')">
                 <!-- 图标icon -->
                 <div class="tools-icon">
-                    <img src="../../assets/lock.png" alt="">
+                    <img src="../../assets/lock-icon.png" alt="">
                 </div>
                 <!-- 描述 -->
                 <div class="tools-desc">Privacy Agreement</div>
@@ -55,10 +55,10 @@
                     <img src="../../assets/right.png" alt="">
                 </div>
             </li>
-            <li>
+            <li @click="toUS">
                 <!-- 图标icon -->
                 <div class="tools-icon">
-                    <img src="../../assets/lock.png" alt="">
+                    <img src="../../assets/kefu-icon.png" alt="">
                 </div>
                 <!-- 描述 -->
                 <div class="tools-desc">Contact Us</div>
@@ -67,10 +67,10 @@
                     <img src="../../assets/right.png" alt="">
                 </div>
             </li>
-            <li>
+            <li @click="$router.push('/syquanxian')">
                 <!-- 图标icon -->
                 <div class="tools-icon">
-                    <img src="../../assets/lock.png" alt="">
+                    <img src="../../assets/xieyi-icon.png" alt="">
                 </div>
                 <!-- 描述 -->
                 <div class="tools-desc">Permission statement</div>
@@ -102,6 +102,20 @@ export default {
             });
             // this.$store.commit('clearUserInfo')
             // this.$store.commit('changeLogin', false)
+        },
+        //去订单页
+        toLoan() {
+            if (this.$store.state.isLogin) {
+                this.$router.push('/loan')
+            } else {
+                Toast('please log in first')
+                this.$router.push('/login')
+            }
+        },
+        //联系我们
+        toUS() {
+            const emailAddress = "violin.customer@hotmail.com"; // 将要跳转的邮箱地址
+            window.location.href = "mailto:" + emailAddress; // 跳转到默认邮件应用程序
         }
     }
 }
@@ -110,7 +124,7 @@ export default {
 .me {
     width: 100vw;
     background-color: #f5f5f5;
-    padding-bottom: (65/@a);
+    padding-bottom: (90/@a);
 
     /deep/.tuichu {
         width: (345/@a);
@@ -144,8 +158,8 @@ export default {
             background-color: #fff;
 
             .tools-icon {
-                width: (17/@a);
-                height: (17/@a);
+                width: (25/@a);
+                height: (25/@a);
                 border-radius: (5/@a);
                 background-color: #fff;
 

@@ -6,6 +6,7 @@ import xieyi from './modules/xieyi'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    namespaced: true,
     plugins: [createPersistedState()],
     state: {
         isLogin: false, //是否登录
@@ -16,9 +17,27 @@ export default new Vuex.Store({
         ocrForm: {},
         //ocr照片的url
         ocrUrl: {},
+        //选中贷款的id
+        productId: '',
+        //订单id
+        orderId: '',
+        //还款信息
+        orderInfo: {}
     },
     getters: {},
     mutations: {
+        //设置还款产品信息
+        setOrderInfo(state, payload) {
+            state.orderInfo = payload
+        },
+        //设置订单id
+        setOrderId(state, payload) {
+            state.orderId = payload
+        },
+        //设置贷款的id
+        setProductId(state, payload) {
+            state.productId = payload
+        },
         //设置ocr图片
         setOCRUrl(state, payload) {
             state.ocrUrl = payload
@@ -53,5 +72,5 @@ export default new Vuex.Store({
         },
     },
     actions: {},
-    modules: { form, xieyi },
+    modules: { form, xieyi, },
 });
