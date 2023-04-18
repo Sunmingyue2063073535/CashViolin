@@ -1,7 +1,7 @@
 // 导出一个axios的实例  而且这个实例要有请求拦截器 响应拦截器
 import axios from 'axios'
 import { Toast } from 'vant'
-// import { getPhoneInfo } from "./android";
+import { getPhoneInfo } from "./android";
 import store from '../store'
 import router from '../router'
 // 创建一个axios的实例
@@ -9,7 +9,7 @@ const service = axios.create({
     // 设置基地址
     baseURL: 'https://app.cashviolin.xyz',
     withCredentials: true,
-    timeout: 600000,
+    timeout: 60000,
 })
 service.defaults.headers["Content-Type"] = "application/json";
 

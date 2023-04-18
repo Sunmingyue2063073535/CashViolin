@@ -1,8 +1,10 @@
 <template>
     <div class="huoti">
-        <img :src="headImgSrc" alt="摄像头" @click="callCamera">
-        <canvas ref="canvas" width="500" height="500"></canvas>
-        <video ref="video" width="200" height="200" autoplay></video>
+        <FormTopDesc desc="FACE RECOGNITION"></FormTopDesc>
+        <div class="video-div">
+            <video ref="video" width="300" height="300" autoplay class="video"></video>
+        </div>
+        <canvas ref="canvas" width="300" height="300" style="display: none;"></canvas>
         <div class="btn" @click="photograph">拍照</div>
     </div>
 </template>
@@ -10,6 +12,7 @@
 import { add, unt } from '../../utils/AESKey.js'
 import { huotijiaoyanAPI } from "../../api";
 import isNext from './isNext.js'
+import { Toast } from "vant";
 export default {
     data() {
         return {
@@ -17,9 +20,7 @@ export default {
             formData: {
                 model: {
                     faceInfo: null,
-                    action: '1',
-                    score: '',
-                    livenessType: 'ZH'
+                    livenessType: 'ACC_H5'
                 }
             },
         }
@@ -53,18 +54,15 @@ export default {
             let fileLength = parseInt(strLength - (strLength / 8) * 2)
             // 图片尺寸  用于判断
             let size = (fileLength / 1024).toFixed(2)
-            console.log(size)
-
-            // 上传拍照信息  调用接口上传图片 .........
-
-            // 保存到本地
+            // console.log(size)
             this.dialogCamera = false
             //上传
-            this.formData.model.faceInfo = imgBase64
+            this.formData.model.faceInfo = str
             const res = await huotijiaoyanAPI(add(this.formData))
             console.log(this.formData)
             try {
                 console.log(res, 'res')
+                console.log(unt(res.data), '活体')
                 if (unt(res.data).status === 0) {
                     console.log(res, 'res222')
                     Toast('Successful recognition')
@@ -91,43 +89,49 @@ export default {
             })
             this.$refs['video'].srcObject = null
         },
+    },
+    created() {
+        this.callCamera()
     }
 }
 </script>
 <style lang="less" scoped>
 .huoti {
     width: 100vw;
+    min-height: (667/@a);
     background-color: #f5f5f5;
     box-sizing: border-box;
+    padding-top: (100/@a);
+
 
     .video-div {
-        margin-left: (35/@a);
+        margin-top: (30/@a);
+        margin-left: (37/@a);
         width: (300/@a);
         height: (300/@a);
         border-radius: 50%;
-        background-color: #fff;
+        font-size: 0;
 
-        .viedo {
-            width: 100%;
-            height: 100%;
-            margin-left: (30/@a);
-            border-radius: 50%;
-            text-align: center;
-            object-fit: cover;
-            -webkit-transform: translate3d(0, 0, 0);
+        .video {
             transform: scaleX(-1);
+            object-fit: fill;
+            width: (300/@a);
+            height: (300/@a);
+            // border-radius: (150/@a);
+            border-radius: (200/@a);
         }
     }
 
     .btn {
+        position: absolute;
+        bottom: (30/@a);
+        left: (67/@a);
         width: (241/@a);
         height: (53/@a);
         text-align: center;
         line-height: (53/@a);
         background: #E1A08B;
         border-radius: (10/@a);
-        margin-left: (67/@a);
-        margin-top: (150/@a);
         font-size: (19/@a);
         font-family: Alibaba PuHuiTi;
         font-weight: bold;

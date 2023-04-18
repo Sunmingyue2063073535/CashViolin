@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "874023737853",
+    "project_id": "cash-violin",
+    "storage_bucket": "cash-violin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874023737853:android:f2cbe1341472c353df6194",
+        "android_client_info": {
+          "package_name": "com.music.violin.cash.violin.music.loan.store.cash.loan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874023737853-5i4saspu5us4s050439a268ocio95v36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.music.violin.cash.violin.music.loan.store.cash.loan",
+            "certificate_hash": "18511a599dcb5cc7bdd7ad0fad3707854fbeab91"
+          }
+        },
+        {
+          "client_id": "874023737853-mofepd96tuf9hjs7980v6l7nimfuomal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBEOAA9JkWQwU-dYfrHdetOj49HcMb2nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874023737853-mofepd96tuf9hjs7980v6l7nimfuomal.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,7 +38,7 @@
 import { add, unt } from "../../utils/AESKey.js";
 import { getOrderListAPI, getOrderPayAPI, dkUploadAPI } from "../../api";
 export default {
-    // props: ['sxfList'],
+    // props: {sxfList:[]},
     data() {
         return {
             sxfList: []

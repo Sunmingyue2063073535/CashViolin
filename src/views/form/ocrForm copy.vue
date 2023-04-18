@@ -50,9 +50,9 @@ export default {
                     idCard: this.$store.state.ocrUrl.idCard,
                     realName: this.$store.state.ocrUrl.realName,
                     taxRegNumber: this.$store.state.ocrUrl.taxRegNumber,
-                    idCardImageFront: this.$store.state.isupload.sfzqImg,
-                    idCardImageBack: this.$store.state.isupload.sfzhImg,
-                    idCardImagePan: this.$store.state.isupload.bankImg
+                    idCardImageFront: this.$store.state.ocrUrl.img.sfzqImg,
+                    idCardImageBack: this.$store.state.ocrUrl.img.sfzhImg,
+                    idCardImagePan: this.$store.state.ocrUrl.img.bankImg
                 }
             }
         }
@@ -83,11 +83,6 @@ export default {
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
-    },
-    computed: {
-        form() {
-            return this.$store.state.ocrUrl
-        },
     },
     created() {
         this.birthday = this.formatDate(this.$store.state.ocrUrl.birthDay)

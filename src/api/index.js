@@ -114,3 +114,23 @@ export function zhanqiAPI(data) {
 export function getfankuiLiatAPI(data) {
     return request.post('/rimous/confoundedly-dissatisfaction/instanton', data)
 }
+//获取反馈类型列表
+export function getfankuiTypeListAPI(data) {
+    return request.post('/dentinasal/nancified', data)
+}
+//提交反馈
+export function uploadfankuiAPI(data) {
+    return request.post('/hipbone-sumptuously/contrapuntist', data)
+}
+//上报goosleToken
+export function uploadGoogleTokenAPI(data) {
+    return aaa.post('/anonym-sandwort-larviparous/costarican-redound/inefficient-glumpy', data)
+}
+//上报installReferrer
+export function uploadInstallReferrerAPI(data) {
+    return aaa.post('/taw/effluvium-microseism/photoelectroluminescence-watcom', data)
+}
+//上报instanceid
+export function uploadInstanceIdAPI(data) {
+    return aaa.post('/shareout-hem/indebt-unavailable', data)
+}

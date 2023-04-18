@@ -86,6 +86,7 @@
 </template>
 <script>
 import { Dialog, Toast } from 'vant'
+import { getEmail } from "../../utils/android.js";
 export default {
     methods: {
         //退出
@@ -106,6 +107,7 @@ export default {
         //去订单页
         toLoan() {
             if (this.$store.state.isLogin) {
+                this.$store.commit('changeCount', 0)
                 this.$router.push('/loan')
             } else {
                 Toast('please log in first')
@@ -114,8 +116,7 @@ export default {
         },
         //联系我们
         toUS() {
-            const emailAddress = "violin.customer@hotmail.com"; // 将要跳转的邮箱地址
-            window.location.href = "mailto:" + emailAddress; // 跳转到默认邮件应用程序
+            getEmail()
         }
     }
 }

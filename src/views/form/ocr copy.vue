@@ -54,23 +54,21 @@ export default {
             sfzhImg: require('../../assets/ocr-two.png'),
             bankImg: require('../../assets/ocr-three.png'),
             user: {
-            },
-            isupload: {
-                sfzqImg: '',
-                sfzhImg: '',
-                bankImg: ''
+                img: {
+                    sfzqImg: '',
+                    sfzhImg: '',
+                    bankImg: ''
+                }
             }
         }
     },
     methods: {
         //上传
         doSubmit() {
-            if (!this.isupload.sfzImg && !this.isupload.sfzhImg && !this.isupload.bankImg) {
+            if (!this.user.img.sfzImg && !this.user.img.sfzhImg && !this.user.img.bankImg) {
                 Toast('Please upload documents')
             } else {
                 this.$store.commit('setOCRUrl', this.user)
-                this.$store.commit('setIsupload', this.isupload)
-
                 this.$router.push('/ocrForm')
             }
         },
@@ -103,14 +101,11 @@ export default {
                 //压缩后的
                 const res = await uploadFileApi(newFileObj)
                 console.log(unt(res.data), '上传图片的结果身份证前')
-                if (unt(res.data).status == 0) {
-                    debugger
-                    //识别证件的结果
-                    this.user = Object.assign({ ... await this.zjsb(unt(res.data).model.id, 'FRONT') }, this.user)
-                    this.sfzqImg = unt(res.data).model.id
-                    this.isupload.sfzqImg = unt(res.data).model.id
-                    // this.user.sfqian = unt(res.data).model.id
-                }
+                this.sfzqImg = unt(res.data).model.id
+                //识别证件的结果
+                this.user = { ...await this.zjsb(unt(res.data).model.id, 'FRONT') }
+                this.user.img.sfzqImg = unt(res.data).model.id
+                // this.user.sfqian = unt(res.data).model.id
             }
             // 开始读取文件内容，这会触发onload事件
             reader.readAsDataURL(file)
@@ -140,14 +135,13 @@ export default {
                 console.log(newFileObj, '1')
                 //压缩后的
                 const res = await uploadFileApi(newFileObj)
-                if (unt(res.data).status == 0) {
-                    this.user = Object.assign({ ...await this.zjsb(unt(res.data).model.id, 'BACK') }, this.user)
-                    console.log(unt(res.data), '上传图片的结果身份证前')
-                    this.sfzhImg = unt(res.data).model.id
-                    this.isupload.sfzhImg = unt(res.data).model.id
-                    // this.user.sfqian = unt(res.data).model.id
-                }
-
+                console.log(unt(res.data), '上传图片的结果身份证前')
+                this.sfzhImg = unt(res.data).model.id
+                const r = await this.zjsb(unt(res.data).model.id, 'FRONT')
+                this.user = { ...r }
+                console.log(r, '-----------')
+                this.user.img.sfzhImg = unt(res.data).model.id
+                // this.user.sfqian = unt(res.data).model.id
             }
             // 开始读取文件内容，这会触发onload事件
             reader.readAsDataURL(file)
@@ -180,14 +174,11 @@ export default {
                 console.log(newFileObj, '1')
                 //压缩后的
                 const res = await uploadFileApi(newFileObj)
-                if (unt(res.data).status == 0) {
-                    this.user = Object.assign({ ...await this.zjsb(unt(res.data).model.id, 'PAN') }, this.user)
-                    console.log(unt(res.data), '上传图片的结果身份证前')
-                    this.bankImg = unt(res.data).model.id
-                    this.isupload.bankImg = unt(res.data).model.id
-                    // this.user.sfqian = unt(res.data).model.id
-                }
-
+                console.log(unt(res.data), '上传图片的结果身份证前')
+                this.bankImg = unt(res.data).model.id
+                this.user = { ...await this.zjsb(unt(res.data).model.id, 'FRONT') }
+                this.user.img.bankImg = unt(res.data).model.id
+                // this.user.sfqian = unt(res.data).model.id
             }
             // 开始读取文件内容，这会触发onload事件
             reader.readAsDataURL(file)
@@ -270,11 +261,8 @@ export default {
                 }
             }
             const res = await zhengjainshibieAPI(add(form))
-            if (unt(res.data).status == 0) {
-                debugger
-                return unt(res.data).model
-            }
-            return
+            console.log(unt(res.data), '识别证件结果')
+            return unt(res.data).model
         },
     }
 }

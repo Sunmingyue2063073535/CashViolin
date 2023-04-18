@@ -205,6 +205,7 @@ export default {
         },
         //当关系选择完毕时执行
         doConfirm(ele, value) {
+            console.log(ele, value, 'ele,value')
             this.form.model.submitData.userEmergs[this.index].relation = ele
             this.showPicker = false
         },

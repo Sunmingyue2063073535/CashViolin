@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="bottom">
-            <div class="btn">Submit Questions</div>
+            <div class="btn" @click="$router.push('/kefuForm')">Submit Questions</div>
         </div>
     </div>
 </template>
@@ -50,7 +50,7 @@ export default {
                 }
             }
             const res = await getfankuiLiatAPI(add(f))
-            this.list = unt(res.data).page.content
+            this.list = unt(res.data).page.content.reverse()
             console.log(unt(res.data))
         }
     },
@@ -68,6 +68,7 @@ export default {
 
     .list {
         width: (300/@a);
+        height: auto;
         margin: (20/@a);
         margin-top: (30/@a);
 
@@ -93,11 +94,11 @@ export default {
         .q-img {
             margin-top: (20/@a);
             width: (300/@a);
-            height: (200/@a);
+            height: auto;
 
             img {
-                width: (280/@a);
-                height: (200/@a);
+                width: 100%;
+                height: auto;
             }
         }
 

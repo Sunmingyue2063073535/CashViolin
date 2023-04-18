@@ -30,7 +30,7 @@
                     <li>7 DAY</li>
                     <li>2023-02-07 08:59:22</li>
                     <li>L20230207062922806</li>
-                    <li v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'"
+                    <li class="li-img" v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'"
                         @click="$router.push('/askQuestions')">
                         <img src="../../assets/kefu-logo.png" alt="">
                     </li>
@@ -218,14 +218,16 @@ export default {
                     color: #E1A08B;
                     margin-bottom: (13/@a);
 
-                    &:last-child {
-                        width: (22/@a);
-                        height: (15/@a);
-                        margin-left: (110/@a);
 
-                        img {
-                            width: 100%;
-                        }
+                }
+
+                .li-img {
+                    width: (22/@a);
+                    height: (15/@a);
+                    margin-left: (110/@a);
+
+                    img {
+                        width: 100%;
                     }
                 }
             }

@@ -22,10 +22,15 @@ export default new Vuex.Store({
         //订单id
         orderId: '',
         //还款信息
-        orderInfo: {}
+        orderInfo: {},
+        isupload: {}
     },
     getters: {},
     mutations: {
+        //ocr图片
+        setIsupload(state, payload) {
+            state.isupload = payload
+        },
         //设置还款产品信息
         setOrderInfo(state, payload) {
             state.orderInfo = payload

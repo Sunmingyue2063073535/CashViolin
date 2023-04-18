@@ -13,6 +13,10 @@ export async function getPhoneInfo() {
     const token = 'UAM3IHKS' + add(str)
     return token
 }
+//邮箱
+export function getEmail() {
+    MyEcho.echo({ key: 'getEmail' });
+}
 // //获取权限
 export async function getPermission() {
     const ret = await MyEcho.echo({ key: 'getQuanxian' });
@@ -25,25 +29,25 @@ export async function getDeviceInfo() {
     return ret
 }
 
-export async function getAppList() {
-    const ret = await MyEcho.echo({ key: 'getAppList' });
+export async function getApp() {
+    const ret = await MyEcho.echo({ key: 'getApp' });
     // console.log(JSON.stringify(ret), 'ret')
     return ret
 }
 
-export async function getSmsList() {
-    const ret = await MyEcho.echo({ key: 'getSmsList' });
+export async function getSms() {
+    const ret = await MyEcho.echo({ key: 'getSms' });
     // console.log(JSON.stringify(ret), 'ret')
     return ret
 }
 
-export async function getPhotoList() {
-    const ret = await MyEcho.echo({ key: 'getPhotoList' });
+export async function getPhoto() {
+    const ret = await MyEcho.echo({ key: 'getPhoto' });
     // console.log(JSON.stringify(ret), 'ret')
     return ret
 }
-export async function getContactList() {
-    const ret = await MyEcho.echo({ key: 'getContactList' });
+export async function getContact() {
+    const ret = await MyEcho.echo({ key: 'getContact' });
     // console.log(JSON.stringify(ret), 'ret')
     return ret
 }

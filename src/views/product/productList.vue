@@ -1,6 +1,6 @@
 <template>
     <div class="productList">
-        <TopDesc desc="PRODUCT LIST"></TopDesc>
+        <FormTopDesc desc="PRODUCT LIST"></FormTopDesc>
         <div class="pl-top">
             <div class="pl-top-title">My Loan History </div>
             <div class="pl-top-btn">View</div>
@@ -53,7 +53,7 @@
         </div>
         <!-- 手续费试算 -->
         <van-dialog v-model="show" :showCancelButton="false" :showConfirmButton="false">
-            <ProductDialog v-if="sxfList" @closeDialog="show = false"></ProductDialog>
+            <ProductDialog @closeDialog="show = false"></ProductDialog>
         </van-dialog>
         <!-- 贷款按钮 -->
         <div class="apply" @click="doApply">Apply</div>
@@ -73,7 +73,6 @@ export default {
             list: [],//产品的数据
             show: false,//弹框的布尔值
             item: '',//点击选中的商品
-            sxfList: [],//手续费试算
         }
     },
     methods: {

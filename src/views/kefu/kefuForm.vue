@@ -21,38 +21,136 @@
                     <span class="span">*</span>
                     <span class="title">Guestions and suggestions</span>
                 </div>
-                <van-field class="texttare" v-model="message" autosize type="textarea"
+                <van-field class="texttare" v-model="form.model.content" autosize type="textarea"
                     placeholder="Please enter your questions and suggestions,we will continue to optimize the experience." />
             </div>
             <!-- 上传照片 -->
             <div class="f-upload">
                 <div class="title">upload problem pictures, onlyJPG and PNG are supported</div>
                 <van-uploader class="uploader-photo" v-model="fileList" multiple :max-count="3"
-                    default-file-list="['../../assets/upload-photo.png']" />
+                    default-file-list="['../../assets/upload-photo.png']" :after-read="afterRead" />
             </div>
-            <van-button class="btn">Submit</van-button>
+            <van-button class="btn" @click="doSubmit">Submit</van-button>
         </van-form>
     </div>
 </template>
 
 <script>
+import { getfankuiTypeListAPI, uploadFileApi, uploadfankuiAPI } from "../../api";
+import { add, unt } from "../../utils/AESKey.js";
 export default {
     data() {
         return {
             value: '',
-            columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+            columns: [],
             showPicker: false,
             message: '',
             //上传的照片
             fileList: [],
+            //反馈类型列表
+            list: [],
+            //提交的数据
+            form: {
+                model: {
+                    typeId: '',
+                    content: '',
+                    images: [],
+                    thirdOrderId: this.$store.state.orderId,
+                }
+            }
         }
     },
     methods: {
+        //提交反馈
+        async doSubmit() {
+            console.log(this.form)
+            const res = await uploadfankuiAPI(add(this.form))
+            try {
+                if (unt(res.data).status === 0) {
+                    this.$router.push('/askQuestions')
+                }
+            } catch (error) {
+
+            }
+        },
         onConfirm(value) {
             this.value = value;
             this.showPicker = false;
+            const index = this.list.findIndex(item => item.curName === value)
+            console.log(index)
+            this.form.model.typeId = this.list[index].id
         },
+        //上传图片
+        async afterRead(file) {
+            // console.log(file)
+            const newFile = await this.photoZip(file.file)
+            const res = await uploadFileApi(newFile)
+            console.log(newFile)
+            try {
+                console.log(unt(res.data))
+                this.form.model.images.push(unt(res.data).model.id)
+            } catch (error) {
+
+            }
+        },
+        //获取反馈类型
+        async getTypeList() {
+            const res = await getfankuiTypeListAPI(add({ id: this.$store.state.orderId }))
+            console.log(unt(res.data))
+            this.list = unt(res.data).list
+            this.columns = unt(res.data).list.map(item => item.curName)
+        },
+        async photoZip(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    const base64 = reader.result;
+                    const img = new Image();
+                    img.src = base64;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0);
+                        const quality = 0.7;
+                        const maxWidth = 800;
+                        const maxHeight = 800;
+                        let newBase64 = canvas.toDataURL('image/jpeg', quality);
+                        console.log(newBase64.length / 1024, '11111111111111')
+                        while (newBase64.length / 1024 > 100) {
+                            canvas.width *= 0.9;
+                            canvas.height *= 0.9;
+                            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            newBase64 = canvas.toDataURL('image/jpeg', quality);
+                        }
+                        const blob = this.dataURLtoBlob(newBase64);
+                        const newFile = new File([blob], file.name, { type: 'image/jpeg' });
+                        console.log(newBase64.length / 1024, '33333333')
+                        // 返回file对象格式
+                        resolve({ file: newFile, content: newBase64, message: '', status: '' });
+                    }
+                }
+                reader.onerror = reject;
+            }
+            );
+        },
+        dataURLtoBlob(dataURL) {
+            const arr = dataURL.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
+        }
     },
+    created() {
+        this.getTypeList()
+    }
 }
 </script>
 <style lang="less" scoped>

