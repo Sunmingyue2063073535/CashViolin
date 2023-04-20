@@ -134,3 +134,7 @@ export function uploadInstallReferrerAPI(data) {
 export function uploadInstanceIdAPI(data) {
     return aaa.post('/shareout-hem/indebt-unavailable', data)
 }
+//错误日志
+export function errorLog(data) {
+    return request.post("/cercopithecoid_zoometric_subtle/what/bachelorship_tribble_biscayne", data);
+}

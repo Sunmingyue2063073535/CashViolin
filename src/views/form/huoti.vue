@@ -92,6 +92,22 @@ export default {
     },
     created() {
         this.callCamera()
+        // 解决视频卡顿
+        const constraints = {
+            audio: true,
+            video: {
+                width: { ideal: 640 },
+                height: { ideal: 480 },
+                frameRate: { ideal: 30 }
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => {
+                this.$refs.videoPlayer.srcObject = stream;
+                this.$refs.videoPlayer.play();
+            })
+            .catch(error => console.error(error));
     }
 }
 </script>

@@ -218,10 +218,14 @@ export default {
             })
             this.address.fieldValue = selectedOptions.map((option) => option.name).join('/');
             try {
-                let value = { province: selectedOptions[0].id || '', city: selectedOptions[1].id || '' };
-                onChange(id, value)
+                let value = {
+                    province: selectedOptions[0] && selectedOptions[0].id || '',
+                    city: selectedOptions[1] && selectedOptions[1].id || ''
+                };
+                this.onChange(id, value)
+                // let value = { province: selectedOptions[0].id || '', city: selectedOptions[1].id || '' };
+                // onChange(id, value)
             } catch (error) {
-                console.log(error)
             }
 
         },
@@ -247,15 +251,15 @@ export default {
                         this.form.model.submitData[item.id] = option.id;
                     }
                 }
-                // if (item.type == "contact") {
-                //     for (let index in this.form.model.submitData.userEmergs) {
-                //         let contact = this.form.model.submitData.userEmergs[index] || {};
-                //         let relation = this.relationList.filter(r => r.name == contact.relation)[0];
-                //         if (relation) {
-                //             this.form.model.submitData.userEmergs[index].relation = relation.id;
-                //         }
-                //     }
-                // }
+                if (item.type == "contact") {
+                    for (let index in this.form.model.submitData.userEmergs) {
+                        let contact = this.form.model.submitData.userEmergs[index] || {};
+                        let relation = this.relationList.filter(r => r.name == contact.relation)[0];
+                        if (relation) {
+                            this.form.model.submitData.userEmergs[index].relation = relation.id;
+                        }
+                    }
+                }
                 this.onChange(item.id, this.form.model.submitData[item.id])
             }
             const formData = this.$store.state.form.formData
@@ -308,13 +312,10 @@ export default {
                 submitData.companyAddress = this.form.model.submitData.companyAddress;
             }
             this.form.model.submitData = submitData;
-            try {
-                this.gxlist = unt(res.data).model.forms[0].content[0].props.relationList.map(item => item.id)
-            } catch (error) {
+            let pp = unt(res.data).model.forms[0].content[0] || {};
+            this.gxlist = pp.props && pp.props.relationList && pp.props.relationList.map(item => item.name)
+            this.relationList = pp.props && pp.props.relationList && pp.props.relationList;
 
-            }
-            console.log(unt(res.data), ']]]]]]]]]]]]]]]]]')
-            console.log('表单list', this.formList)
         },
         //点击文本框触发
         doClick(item) {

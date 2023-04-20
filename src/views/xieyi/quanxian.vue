@@ -52,8 +52,8 @@ export default {
     }
 
     .quanxian-bottom {
-        position: fixed;
-        bottom: 0;
+        // position: fixed;
+        // bottom: 0;
 
         .quanxian-select {
             box-sizing: border-box;

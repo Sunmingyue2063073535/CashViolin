@@ -19,17 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+#ByWebView
 -optimizationpasses 1
--ignorewarnings
 -obfuscationdictionary dictionary_rules.txt
 -classobfuscationdictionary dictionary_rules.txt
 -packageobfuscationdictionary dictionary_rules.txt
 
+-ignorewarnings
 
-#Flutter Wrapper
 -dontwarn io.branch.**
 -dontwarn okhttp3.**
-
 
 -keep class com.appsflyer.** { *; }
 #-dontwarn com.android.installreferrer
@@ -38,52 +39,51 @@
 -keep class com.google.android.gms.** { *; }
 -keep class com.facebook.applinks.** { *; }
 -keepclassmembers class com.facebook.applinks.** { *; }
+#-keep class com.facebook.FacebookSdk { *; }
 -keep class com.facebook.** { *; }
 -keep class io.branch.** { *; }
 
 -keep class com.android.installreferrer.** { *; }
 -dontwarn com.android.installreferrer.**
 
-# android x
--dontwarn com.google.android.material.**
--keep class com.google.android.material.** { *; }
--dontwarn androidx.**
--keep class androidx.** { *; }
--keep interface androidx.** { *; }
 
-# yitu
--keep class com.oliveapp.camerasdk.** {*;}
--keepattributes InnerClasses
--keep class com.oliveapp.**.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.**.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.bean.** {*;}
+-keepattributes *Annotation*
+-keepattributes *JavascriptInterface*
 
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
 
-# Keep EventBus class
-#-keepattributes *Annotation*
-#-keepclassmembers class * {
-#    @org.greenrobot.eventbus.Subscribe <methods>;
-#}
-#-keep enum org.greenrobot.eventbus.ThreadMode { *; }
-#
-#-keepclassmembers class org.greenrobot.eventbus.util.ThrowableFailureEvent {
-#    <init>(java.lang.Throwable);
+-dontwarn com.google.**
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod
+-dontwarn com.google.gson.**
+-keep class com.google.gson.** {*;}
+-keep class com.google.protobuf.** {*;}
+#-keep class com.sand.land.money.cash.loan.loan.bean.** {
+#    *;
 #}
 
-#-keep class org.greenrobot.eventbus.android.AndroidComponentsImpl
-
-# -keep dfsdk
--dontwarn com.dfsdk.**
--keep class com.dfsdk.** {*;}
-
--keep class **.R$* {*;}
--keep class com.ms.banner.** {*;}
-
--dontwarn java.lang.**
--keep class java.lang.** {*;}
-
-
+# fastjson proguard rules
+# https://github.com/alibaba/fastjson
 -dontwarn com.alibaba.fastjson.**
--keep class com.alibaba.fastjson.** { *; }
--keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes *Annotation*
+
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}
+
+-keep class com.alittle.pity.cash.loan.money.store.in.go.cash.pity.** {*;}
+
+-keep class com.huantansheng.easyphotos.models.** { *; }
+
+
+

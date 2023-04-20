@@ -19,8 +19,8 @@ service.interceptors.request.use(
         // console.log(config, '请求参数')
         store.commit('showLoading')
         //添加token
-        const token = 'UAM3IHKS3a86d2c5966e5bed09f370e3b46ac6fc56eb8f8fe691e3857e08fbb6b923e4d2180251d857a9b64fb1442d8d39a955bff7bc6a1c58ff6dc0e289f5b15857fb4efb5c0266c543445bd6aed2d35e6a608342049fe3de2c5e721cabeaf4dc6cecb8e2452ca50b4ff78474ce2ea3f729b81f'
-        // const token = await getPhoneInfo()
+        // const token = 'UAM3IHKS3a86d2c5966e5bed09f370e3b46ac6fc56eb8f8fe691e3857e08fbb6b923e4d2180251d857a9b64fb1442d8d39a955bff7bc6a1c58ff6dc0e289f5b15857fb4efb5c0266c543445bd6aed2d35e6a608342049fe3de2c5e721cabeaf4dc6cecb8e2452ca50b4ff78474ce2ea3f729b81f'
+        const token = await getPhoneInfo()
         config.headers.Token = token
         //添加登录的token
         const auth = store.state.userInfo.token

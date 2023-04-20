@@ -38,6 +38,14 @@ window.updateData = async function (item) {
     // console.log('333')
   }
 }
+Vue.config.errorHandler = function (err, vm, info) {
+  console.log(JSON.stringify({ "message": info, "stacktrace": `Error: ${err.toString()}\nInfo: ${info}` }), '错误日志')
+  try {
+    errorLog(add({ "message": info, "stacktrace": `Error: ${err.toString()}\nInfo: ${info}` }))
+  } catch (err) {
+
+  }
+}
 new Vue({
   router,
   store,

@@ -1,7 +1,7 @@
 export default {
     state: {
-        yinsiActive: false,
-        quanxianActive: false,
+        yinsiActive: true,
+        quanxianActive: true,
         xieyiCount: 2
     },
     getters: {

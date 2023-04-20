@@ -44,9 +44,9 @@
                 </div>
             </div>
             <!-- 选择框 -->
-            <div class="s" @click="doClick">
+            <div class="s" @click="doClick(item, index)">
                 <div class="select">
-                    <img v-if="!checked" src="../../assets/goodlist.png" alt="">
+                    <img v-if="checked !== index" src="../../assets/goodlist.png" alt="">
                     <img v-else src="../../assets/goodlist-m.png" alt="">
                 </div>
             </div>
@@ -63,13 +63,14 @@
 import { add, unt } from "../../utils/AESKey.js";
 import { getOrderListAPI, getOrderPayAPI } from "../../api";
 import ProductDialog from "./productDialog";
+import { Toast } from "vant";
 export default {
     components: { ProductDialog },
     data() {
         return {
             count: '',
             isShow: false,
-            checked: false,
+            checked: '',
             list: [],//产品的数据
             show: false,//弹框的布尔值
             item: '',//点击选中的商品
@@ -78,24 +79,18 @@ export default {
     methods: {
         //去贷款
         async doApply() {
+            if (this.checked === '') {
+                Toast('请勾选产品')
+                return
+            }
             this.show = true
-            // const f = {
-            //     model: {
-            //         productIds: []
-            //     }
-            // }
-            // f.model.productIds.push(this.$store.state.productId)
-            // console.log(f)
-            // const res = await getOrderPayAPI(add(f))
-            // console.log(unt(res.data), '手续费试算结果')
-            // this.sxfList = unt(res.data).model
         },
         //点击产品时
         doClick(item, index) {
-            this.checked = !this.checked
+            this.checked = index
             this.item = item
             this.$store.commit('setProductId', this.item.id)
-            console.log(this.item)
+            console.log(this.item, index)
         },
         //收齐按钮
         put(item, index) {

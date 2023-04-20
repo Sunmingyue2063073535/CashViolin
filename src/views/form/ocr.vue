@@ -104,7 +104,6 @@ export default {
                 const res = await uploadFileApi(newFileObj)
                 console.log(unt(res.data), '上传图片的结果身份证前')
                 if (unt(res.data).status == 0) {
-                    debugger
                     //识别证件的结果
                     this.user = Object.assign({ ... await this.zjsb(unt(res.data).model.id, 'FRONT') }, this.user)
                     this.sfzqImg = unt(res.data).model.id
@@ -271,7 +270,7 @@ export default {
             }
             const res = await zhengjainshibieAPI(add(form))
             if (unt(res.data).status == 0) {
-                debugger
+
                 return unt(res.data).model
             }
             return

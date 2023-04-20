@@ -31,6 +31,7 @@ export default {
         },
         //跳转到下一页
         toNext() {
+            console.log(123)
             if (this.$store.state.yinsiActive) {
                 this.$store.commit('xieyi/addxieyi')
             } else {
@@ -53,8 +54,10 @@ export default {
     }
 
     .yinsi-bottom {
-        position: fixed;
-        bottom: 0;
+        // position: fixed;
+        // bottom: 0;
+        // left: 0;
+        // z-index: 999;
 
         .yinsi-select {
             box-sizing: border-box;
