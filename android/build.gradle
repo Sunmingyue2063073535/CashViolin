@@ -12,6 +12,9 @@ buildscript {
         classpath 'com.guardsquare:proguard-gradle:7.2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //字符串加密
+//        classpath 'com.github.megatronking.stringfog:gradle-plugin:4.0.1'
+//        classpath 'com.github.megatronking.stringfog:xor:4.0.1'
     }
 }
 

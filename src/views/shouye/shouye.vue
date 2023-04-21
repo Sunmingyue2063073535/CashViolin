@@ -8,7 +8,7 @@
         <div class="btn" @click="toApply">Apply now</div>
         <!-- banner -->
         <div class="banner">
-            <div class="toapply" @click="toa">To apply</div>
+            <div class="toapply" @click="toApply">To apply</div>
         </div>
         <div class="three">
             <img src="../../assets/shouye-three.png" alt="">
@@ -41,18 +41,6 @@ export default {
             } else {
                 this.$router.push('beforeys')
             }
-        },
-        //测试获取权限
-        async toa() {
-            let res = await getPermission()
-            if (!res.result) {
-                this.$store.commit('hideLoading')
-                Dialog({
-                    message: 'Please re-acquire the permission, if it is rejected twice, please open the permission in the phone settings', confirmButtonText: 'Confirm'
-                });
-                return
-            }
-            this.getInfo()
         },
         //获取设备信息上报情况
         async getInfo() {

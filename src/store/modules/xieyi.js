@@ -17,6 +17,9 @@ export default {
         //选中协议后加一
         addxieyi(state) {
             state.xieyiCount += 1
+        },
+        untxieyi(state) {
+            state.xieyiCount -= 1
         }
     },
     actions: {},

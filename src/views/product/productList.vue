@@ -3,7 +3,7 @@
         <FormTopDesc desc="PRODUCT LIST"></FormTopDesc>
         <div class="pl-top">
             <div class="pl-top-title">My Loan History </div>
-            <div class="pl-top-btn">View</div>
+            <div class="pl-top-btn" @click="$router.push('/loan')">View</div>
         </div>
         <!-- 产品列表 -->
         <div class="productList-list" v-for="(item, index) in list">
@@ -132,6 +132,7 @@ export default {
     .productList-list {
         margin-left: (19/@a);
         margin-top: (20/@a);
+        margin-bottom: (60/@a);
 
         .pl-top {
             width: (336/@a);
@@ -270,6 +271,9 @@ export default {
     }
 
     .apply {
+        position: fixed;
+        bottom: (20/@a);
+        left: 0;
         width: (241/@a);
         height: (53/@a);
         background: #E1A08B;

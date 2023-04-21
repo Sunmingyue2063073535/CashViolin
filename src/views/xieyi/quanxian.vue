@@ -9,7 +9,7 @@
                 <span class="quanxian-desc">Please read the agreement</span>
             </div>
             <div class="quanxian-btn">
-                <div class="quanxian-back" @click="$router.back()">I Disagree</div>
+                <div class="quanxian-back" @click="doCall">I Disagree</div>
                 <div class="quanxian-next" @click="toNext">I Agree</div>
             </div>
         </div>
@@ -23,6 +23,9 @@ export default {
         }
     },
     methods: {
+        doCall() {
+            this.$store.commit('xieyi/untxieyi')
+        },
         //切换小框
         doChange() {
             this.$store.commit('xieyi/changequanxian')
@@ -52,8 +55,10 @@ export default {
     }
 
     .quanxian-bottom {
-        // position: fixed;
-        // bottom: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
 
         .quanxian-select {
             box-sizing: border-box;

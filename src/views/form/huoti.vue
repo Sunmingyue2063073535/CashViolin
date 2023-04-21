@@ -5,7 +5,7 @@
             <video ref="video" width="300" height="300" autoplay class="video"></video>
         </div>
         <canvas ref="canvas" width="300" height="300" style="display: none;"></canvas>
-        <div class="btn" @click="photograph">拍照</div>
+        <div class="btn" @click="photograph">start identifying</div>
     </div>
 </template>
 <script>
@@ -132,7 +132,7 @@ export default {
             transform: scaleX(-1);
             object-fit: fill;
             width: (300/@a);
-            height: (300/@a);
+            height: (400/@a);
             // border-radius: (150/@a);
             border-radius: (200/@a);
         }

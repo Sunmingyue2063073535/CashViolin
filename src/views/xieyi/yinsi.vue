@@ -9,7 +9,7 @@
                 <span class="yinsi-desc">Please read the agreement</span>
             </div>
             <div class="yinsi-btn">
-                <div class="yinsi-back">I Disagree</div>
+                <div class="yinsi-back" @click="callBack">I Disagree</div>
                 <div class="yinsi-next" @click="toNext">I Agree</div>
             </div>
         </div>
@@ -17,6 +17,7 @@
 </template>
 <script>
 import { Toast } from 'vant'
+import { logout } from "../../utils/android.js";
 export default {
     name: 'yinsi',
     data() {
@@ -24,6 +25,10 @@ export default {
         }
     },
     methods: {
+        //退出应用
+        callBack() {
+            logout()
+        },
         //切换小框
         doChange() {
             console.log(1, this.$store.state.xieyi.yinsiActive)
@@ -54,10 +59,10 @@ export default {
     }
 
     .yinsi-bottom {
-        // position: fixed;
-        // bottom: 0;
-        // left: 0;
-        // z-index: 999;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
 
         .yinsi-select {
             box-sizing: border-box;

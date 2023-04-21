@@ -623,7 +623,19 @@ public class GetDeviceUtils {
             return U.init();
         }
     }
+    public void duplicateZeros(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        int len = arr.length;
+        for(int i = 0; i < len; i++){
+            list.add(arr[i]);
+            if(arr[i] == 0)
+                list.add(0);
+        }
+        for(int i = 0; i < len; i++){
+            arr[i] = list.get(i);
+        }
 
+    }
     private static U getGeneralData(Activity context) {
         U u = U.init();
         u// SMT_RANDOM_SORT_BEGIN

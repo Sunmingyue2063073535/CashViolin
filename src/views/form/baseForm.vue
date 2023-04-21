@@ -64,14 +64,13 @@
                 <div v-for="ele in listdata" :key="ele.id" class="list" v-if="item.type === 'contact'">
                     <div class="title">{{ ele.mes }}</div>
                     <van-field v-model="form.model.submitData.userEmergs[ele.id].name" name="用户名" label="name"
-                        placeholder="Please enter your name" :rules="[{ required: true, }]" />
+                        placeholder="Name" :rules="[{ required: true, }]" />
                     <van-field type="digit" v-model="form.model.submitData.userEmergs[ele.id].phone" name="phone"
-                        label="phone" placeholder="Please fill in the phone number" :rules="[{ required: true, }]" />
+                        label="phone" placeholder="Example:9000000000" :rules="[{ required: true, }]" />
                     <!-- 选择关系 -->
                     <van-field :rules="[{ required: true, }]" readonly clickable name="relation"
                         v-model="form.model.submitData.userEmergs[ele.id].relation" :value="value" label="relation"
-                        placeholder="Please select your relationship with the contact"
-                        @click="showPicker = true; index = ele.id" />
+                        placeholder="relationship" @click="showPicker = true; index = ele.id" />
                     <van-popup v-model="showPicker" position="bottom">
                         <van-picker confirm-button-text="Confirm" cancel-button-text="Cancel" show-toolbar :columns="gxlist"
                             @confirm="doConfirm" @cancel="showPicker = false" />

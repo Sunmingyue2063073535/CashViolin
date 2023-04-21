@@ -77,7 +77,7 @@ public class MainActivity extends BridgeActivity {
                             item.put("installBeginTimestampServerSeconds", response.getInstallBeginTimestampServerSeconds());
                             item.put("referrerClickTimestampSeconds", response.getReferrerClickTimestampSeconds());
                             item.put("referrerClickTimestampServerSeconds",  response.getReferrerClickTimestampServerSeconds());
-                            String script = "window.updateData(" + item.toString() + ")";
+                            String script = "window.UploadThreeId(" + item.toString() + ")";
                             bridge.getWebView().evaluateJavascript(script, null);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -88,7 +88,7 @@ public class MainActivity extends BridgeActivity {
                         JSObject item = new JSObject();
                         item.put("type", 3);
                         item.put("error","NOT_SUPPORTED");
-                        String script = "window.updateData(" + item.toString() + ")";
+                        String script = "window.UploadThreeId(" + item.toString() + ")";
                         bridge.getWebView().evaluateJavascript(script, null);
                         break;
                     }
@@ -96,7 +96,7 @@ public class MainActivity extends BridgeActivity {
                         JSObject item = new JSObject();
                         item.put("type", 3);
                         item.put("error","SERVICE_UNAVAILABLE");
-                        String script = "window.updateData(" + item.toString() + ")";
+                        String script = "window.UploadThreeId(" + item.toString() + ")";
                         bridge.getWebView().evaluateJavascript(script, null);
                         break;
                     }
@@ -121,7 +121,7 @@ public class MainActivity extends BridgeActivity {
                         JSObject item = new JSObject();
                         item.put("id", id);
                         item.put("type", 2);
-                        String script = "window.updateData(" + item.toString() + ")";
+                        String script = "window.UploadThreeId(" + item.toString() + ")";
                         bridge.getWebView().evaluateJavascript(script, null);
                     }
                 });
@@ -136,7 +136,7 @@ public class MainActivity extends BridgeActivity {
                 JSObject item = new JSObject();
                 item.put("token", token);
                 item.put("type", 1);
-                String script = "window.updateData(" + item.toString() + ")";
+                String script = "window.UploadThreeId(" + item.toString() + ")";
                 bridge.getWebView().evaluateJavascript(script, null);
             }
         });

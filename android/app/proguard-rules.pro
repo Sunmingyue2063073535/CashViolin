@@ -55,9 +55,8 @@
 -keep class com.oliveapp.camerasdk.** {*;}
 -keepattributes InnerClasses
 -keep class com.oliveapp.**.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.**.R$* {*;}
--keep class com.sand.land.money.cash.loan.loan.bean.** {*;}
+-keep class com.music.violin.cash.violin.music.loan.store.cash.loan.R$* {*;}
+-keep class com.music.violin.cash.violin.music.loan.store.cash.loan.**.R$* {*;}
 
 
 # Keep EventBus class

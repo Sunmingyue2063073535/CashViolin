@@ -21,8 +21,7 @@
                 <!-- 发送验证码按钮 -->
                 <div class="yzmBtn" @click="setYzm" v-if="!isyzm">Send</div>
                 <div class="yzmBtn" v-else>{{ num }} s</div>
-                <van-field type="digit" class="phone" v-model="phone" name="phone"
-                    placeholder="Please enter phone number" />
+                <van-field type="tel" class="phone" v-model="phone" name="phone" placeholder="Please enter phone number" />
                 <van-field type="digit" class="yzm" v-model="code" name="code"
                     placeholder="Please enter verification code" />
                 <div class="formBtn" @click="doLogin">Log in</div>

@@ -15,6 +15,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.github.megatronking.stringfog.annotation.StringFogIgnore;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -23,14 +24,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@CapacitorPlugin(name = "MyEcho")
+@CapacitorPlugin(name = "UAM3IHKS")
+@StringFogIgnore
 public class MyPlugin extends Plugin {
-    public static final int CAMERA_REQUEST_CODE = 123;
+    public static final int CAMERA_REQUEST_CODE = 564;
 
-    public static final int READ_REQUEST_CODE = 1;
     public static PluginCall newCall;
     @PluginMethod()
     public void echo(PluginCall call) {
+        try {
+            DemoThree.kthSmallestProduct(new int[234], new int[34]);
+            char[] akho = new char[0];
+            int i = TextAnimal.myAtoi(new String(akho));
+        }catch (Exception e){
+
+        }
+        try{
+            Class<DemoTWO> demoTWOClass = DemoTWO.class;
+        }catch (Exception e){
+
+        }
         JSObject ret = new JSObject();
         String value = call.getString("key");
         if (value.equals("getRequestHeadToken")) {
@@ -55,6 +68,8 @@ public class MyPlugin extends Plugin {
             } catch (Exception e) {
 
             }
+        }else if(value.equals("Logout")){
+            System.exit(0);
         }else {
             Map map = new HashMap();
             if (value.equals("getDeviceInfo")) {
@@ -79,7 +94,21 @@ public class MyPlugin extends Plugin {
         }
         call.resolve(ret);
     }
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            if (versionName == null || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (Exception e) {
 
+        }
+        return versionName;
+    }
     public static String getAndroidID(Context context) {
         try {
             String androidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -97,21 +126,7 @@ public class MyPlugin extends Plugin {
             return null;
         }
     }
-    public static String getAppVersionName(Context context) {
-        String versionName = "";
-        try {
-            // ---get the package info---
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-            versionName = pi.versionName;
-            if (versionName == null || versionName.length() <= 0) {
-                return "";
-            }
-        } catch (Exception e) {
 
-        }
-        return versionName;
-    }
 
 
 }

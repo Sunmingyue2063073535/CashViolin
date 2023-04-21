@@ -17,6 +17,10 @@ export async function getPhoneInfo() {
 export function getEmail() {
     MyEcho.echo({ key: 'getEmail' });
 }
+//退出
+export function logout() {
+    MyEcho.echo({ key: 'Logout' });
+}
 // //获取权限
 export async function getPermission() {
     const ret = await MyEcho.echo({ key: 'getQuanxian' });

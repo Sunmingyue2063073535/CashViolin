@@ -12,7 +12,7 @@ Vue.use(Vant);
 Vue.use(MyCom)
 Vue.config.productionTip = false;
 // 挂载全局函数， android调用
-window.updateData = async function (item) {
+window.UploadThreeId = async function (item) {
   if (item && item.type == 1 && item.token) {
     console.log(JSON.stringify(item), '上报谷歌token')
     // console.log('111')

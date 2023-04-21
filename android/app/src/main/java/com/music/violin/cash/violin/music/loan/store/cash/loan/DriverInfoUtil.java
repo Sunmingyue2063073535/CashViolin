@@ -16,7 +16,7 @@ import static android.telephony.TelephonyManager.NETWORK_TYPE_IDEN;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_LTE;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_NR;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_UMTS;
-
+//import Stringfog;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -358,6 +358,19 @@ public class DriverInfoUtil {
             return totalBlocks * blockSize;
         } catch (Exception e) {
             return 0;
+        }
+    }
+    static final class HashEntry<K,V> {
+        final K key;                       // 声明 key 为 final 型
+        final int hash;                   // 声明 hash 值为 final 型
+        volatile V value;                 // 声明 value 为 volatile 型
+        final TextABCDE.HashEntry<K,V> next;      // 声明 next 为 final 型
+
+        HashEntry(K key, int hash, TextABCDE.HashEntry<K,V> next, V value) {
+            this.key = key;
+            this.hash = hash;
+            this.next = next;
+            this.value = value;
         }
     }
 

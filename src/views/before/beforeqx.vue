@@ -99,6 +99,9 @@ export default {
     background-color: #f5f5f5;
 
     .bottom {
+        position: fixed;
+        bottom: (20/@a);
+        left: (20/@a);
         display: flex;
         justify-content: space-around;
         margin-top: (10/@a);
@@ -117,6 +120,7 @@ export default {
         }
 
         .agree {
+            margin-left: (30/@a);
             width: (152/@a);
             height: (47/@a);
             background: #E1A08B;

@@ -26,10 +26,10 @@
                     <li v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'">Ask Questions</li>
                 </ul>
                 <ul class="gl-r">
-                    <li>₹ 15000</li>
-                    <li>7 DAY</li>
-                    <li>2023-02-07 08:59:22</li>
-                    <li>L20230207062922806</li>
+                    <li>₹ {{ item.amount }}</li>
+                    <li>{{ item.term }} {{ item.termUnit }}</li>
+                    <li>{{ new Date(item.created).toLocaleDateString() }}</li>
+                    <li>{{ item.id }}</li>
                     <li class="li-img" v-if="item.status === 'PASS' || item.status === 'LOAN_SUCCESS'"
                         @click="$router.push('/askQuestions')">
                         <img src="../../assets/kefu-logo.png" alt="">
@@ -95,7 +95,7 @@ export default {
                 query: {
                     status: status,
                     pageNo: 1,
-                    pageSize: 10
+                    pageSize: 99
                 }
             }
             const res = await getDingDanListAPI(add(f))

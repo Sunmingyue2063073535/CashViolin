@@ -2,8 +2,16 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.guardsquare.proguard'
+//    id 'stringfog'
 }
-
+//import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
+//stringfog {
+//    implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+//    enable true
+//    kg new RandomKeyGenerator()
+//    mode base64
+//    fogPackages = ["com.music.violin.cash.violin.music.loan.store.cash.loan"]
+//}
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
@@ -15,8 +23,8 @@ android {
         applicationId "com.music.violin.cash.violin.music.loan.store.cash.loan"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -82,6 +90,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-core:20.0.0'
+
+
+    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
 
 }
 
